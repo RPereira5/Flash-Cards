@@ -1,0 +1,16 @@
+body {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+h1 {
+    color: rgb(113, 207, 247);
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 3em;
+}
+
+#cardMakerButton {
+    margin-bottom: 10px;
+}
