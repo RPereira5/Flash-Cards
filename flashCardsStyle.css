@@ -14,3 +14,7 @@ h1 {
 #cardMakerButton {
     margin-bottom: 10px;
 }
+
+#cards {
+    width: 50%;
+}
