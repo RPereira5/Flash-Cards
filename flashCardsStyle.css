@@ -19,3 +19,16 @@ h1 {
     width: 50%;
     float: left;
 }
+
+#noCardsTitle {
+    text-align: center;
+    font-size: 150%;
+}
+
+#noCards {
+    text-align: center;
+}
+
+#resetButton {
+    float: right;
+}

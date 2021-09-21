@@ -10,9 +10,10 @@
 <body>
   <script src=flashCardsScript.js></script>
 
-  <h1>Flash Card Generator</h1>
+  <h1>Flash Card Tool</h1>
 
   <button type="button" class="btn btn-outline-info" id="cardMakerButton" onclick=newCard()>Add Card</button>
+  <button type="button" class="btn btn-outline-danger" id="resetButton" style="display:none" data-bs-toggle="modal" data-bs-target="#resettingModal">Reset Cards</button>
 
   <form>
     <label for="newTitle" id="newTitleLabel" style="display:none">Title:</label>
@@ -21,8 +22,8 @@
     <input type="text" id="newDesc" name="newDesc" style="display:none"><br>
     <button type="button" id="submitForm" class="btn btn-outline-info" style="display:none" onclick=createNewCard()>Submit</button><br>
   </form>
-
-  <div id="cards"></div>
+  <p id="cards"></p><br>
+  <p id="noCardsTitle"><strong>No Cards</strong></p><p id="noCards">Click the <strong>Add Card</strong> button above to create one.</p>
   
   <div class="modal fade" id="deletingModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -31,10 +32,26 @@
           <h5 class="modal-title" id="ModalLabel">Delete card?</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">Are you sure you want to <strong>delete this card</strong>? This action is irreversible.</div>
+        <div class="modal-body">Are you sure you want to <strong>delete this card</strong>? This action cannot be undone.</div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick=deleteCard()>Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="resettingModal" tabindex="-1" aria-labelledby="ResetModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ResetModalLabel">Delete all cards?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">Are you sure you want to <strong>delete ALL cards</strong>? This cannot be undone.</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick=deleteArray()>Delete</button>
         </div>
       </div>
     </div>

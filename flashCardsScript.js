@@ -1,9 +1,11 @@
 function newCard(){
-    document.getElementById('newTitleLabel').style.display='block';
-    document.getElementById('newTitle').style.display='block';
-    document.getElementById('newDescLabel').style.display='block';
-    document.getElementById('newDesc').style.display='block';
-    document.getElementById('submitForm').style.display='block';
+    document.getElementById('noCardsTitle').style.display = 'none';
+    document.getElementById('noCards').style.display = 'none';
+    document.getElementById('newTitleLabel').style.display = 'block';
+    document.getElementById('newTitle').style.display = 'block';
+    document.getElementById('newDescLabel').style.display = 'block';
+    document.getElementById('newDesc').style.display = 'block';
+    document.getElementById('submitForm').style.display = 'block';
 }
 
 function createNewCard(){
@@ -26,11 +28,12 @@ function createNewCard(){
 
         document.getElementById('newTitle').value = "";
         document.getElementById('newDesc').value = "";
-        document.getElementById('newTitleLabel').style.display='none';
-        document.getElementById('newTitle').style.display='none';
-        document.getElementById('newDescLabel').style.display='none';
-        document.getElementById('newDesc').style.display='none';
-        document.getElementById('submitForm').style.display='none';
+        document.getElementById('newTitleLabel').style.display = 'none';
+        document.getElementById('newTitle').style.display = 'none';
+        document.getElementById('newDescLabel').style.display = 'none';
+        document.getElementById('newDesc').style.display = 'none';
+        document.getElementById('submitForm').style.display = 'none';
+        document.getElementById('resetButton').style.display = 'block';
     }
 }
 
@@ -43,4 +46,26 @@ function deleteCard(index){
         text += '<div id="collapse'+[i]+'" class="accordion-collapse collapse" aria-labelledby="heading'+[i]+'" data-bs-parent="#accordionHeader"> <div class="accordion-body">' + cardList[i].desc + '</div></div></div></div>';
     }
     document.getElementById("cards").innerHTML = text;
+    if (cardList[0] == null){
+        document.getElementById("cards").innerHTML = null;
+        document.getElementById("noCardsTitle").style.display = 'block';
+        document.getElementById("noCards").style.display = 'block'
+    }
+}
+
+function deleteArray(){
+    let cardList = [];
+    let text = '<div class="accordion" id="accordionHeader"><div class="accordion-item"><h2 class="accordion-header" id="headingOne">';
+    for (var i = 0; i < cardList.length; i++) {
+        text += '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse'+[i]+'" aria-expanded="false" aria-controls="collapse+">' + cardList[i].title + '</button> </h2>';
+        text += '<button type="button" class="btn-close" id="close'+[i]+' aria-label="Close" data-bs-toggle="modal" data-bs-target="#deletingModal"></button>';
+        text += '<div id="collapse'+[i]+'" class="accordion-collapse collapse" aria-labelledby="heading'+[i]+'" data-bs-parent="#accordionHeader"> <div class="accordion-body">' + cardList[i].desc + '</div></div></div></div>';
+    }
+    document.getElementById("cards").innerHTML = text;
+    document.getElementById("noCardsTitle").style.display = 'block';
+    document.getElementById("noCards").style.display = 'block';
+}
+
+function darkTheme(){
+
 }
