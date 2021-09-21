@@ -1,10 +1,11 @@
 body {
+    background-color: black;
     margin-left: 50px;
     margin-right: 50px;
 }
 
 h1 {
-    color: rgb(113, 207, 247);
+    color: rgb(38, 181, 241);
     text-align: center;
     margin-top: 15px;
     margin-bottom: 10px;
@@ -21,11 +22,13 @@ h1 {
 }
 
 #noCardsTitle {
+    color: rgb(214, 224, 226);
     text-align: center;
     font-size: 175%;
 }
 
 #noCards {
+    color: rgb(214, 224, 226);
     text-align: center;
     font-size: 125%;
 }
@@ -40,4 +43,8 @@ h1 {
 
 #toggleTheme {
     float: right;
+}
+
+label {
+    color: rgb(214, 224, 226);
 }
