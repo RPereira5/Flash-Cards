@@ -22,11 +22,12 @@ h1 {
 
 #noCardsTitle {
     text-align: center;
-    font-size: 150%;
+    font-size: 175%;
 }
 
 #noCards {
     text-align: center;
+    font-size: 125%;
 }
 
 #resetButton {
