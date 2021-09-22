@@ -10,17 +10,14 @@ nav {
     font-size: 3em;
 }
 
-.white {
-    color: white;
-}
-
-h1 {
-    font-size: 3em;
+#brand {
+    font-size: .75em;
 }
 
 #cardMakerButton {
     margin-bottom: 10px;
     font-weight: 650;
+    color: white;
 }
 
 #cards {
@@ -41,8 +38,8 @@ h1 {
 }
 
 img {
-    width: 25%;
-    height: 75%; 
+    width: auto;
+    height: auto; 
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -50,6 +47,7 @@ img {
 
 #resetButton {
     color: rgb(230, 0, 0);
+    font-weight: 650;
 }
 
 #toggleTheme {
