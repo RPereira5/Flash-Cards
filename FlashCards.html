@@ -9,23 +9,30 @@
 
 <body>
   <script src=flashCardsScript.js></script>
-
-  <h1>Flash Card Tool</h1>
-
-  <button type="button" class="btn btn-outline-info" id="cardMakerButton" onclick=newCard()>Add Card</button>
-  <button type="button" class="btn btn-outline-danger" id="resetButton" style="display:none" data-bs-toggle="modal" data-bs-target="#resettingModal">Reset Cards</button>
-  <button type="button" class="btn btn-outline-dark" id="toggleTheme" onclick=toggleTheme()>Dark Mode</button>
+  
+  <nav class="navbar navbar-light">
+    <div class="container-fluid">
+      <a class="navbar-brand white"><strong>Flash Card Tool</strong></a> 
+      <a class="nav-link h5 disabled" id="space"></a>
+      <a class="nav-link h5 disabled" id="space1"></a>
+      <a class="nav-link h5 disabled" id="space2"></a>
+      <a class="nav-link h5 white" href="#" id="cardMakerButton" title="Add a New Flash Card" onclick=newCard()>Add Card</a>        
+      <a class="nav-link h5" href="#" id="toggleTheme" title="Toggle Dark Mode" onclick=toggleTheme()>Dark Mode</a>
+      <a class="nav-link h5" href="#" id="resetButton" title="Delete All Cards" style="display:none" data-bs-toggle="modal" data-bs-target="#resettingModal">Reset Cards</a>
+    </div>
+  </nav>
 
   <form>
     <label for="newTitle" id="newTitleLabel" style="display:none">Title:</label>
     <input type="text" id="newTitle" name="newTitle" style="display:none"><br>
     <label for="newDesc" id="newDescLabel" style="display:none">Description:</label>
     <input type="text" id="newDesc" name="newDesc" style="display:none"><br>
-    <button type="button" id="submitForm" class="btn btn-outline-info" style="display:none" onclick=createNewCard()>Submit</button><br>
+    <button type="button" id="submitForm" title="Submit this card's information." class="btn btn-outline-info" style="display:none" onclick=createNewCard()>Submit</button><br>
   </form>
+
   <p id="cards"></p><br>
   <p id="noCardsTitle"><strong>No Cards</strong></p><p id="noCards">Click the <strong>Add Card</strong> button above to create one.</p>
-  <img src="https://cdn.discordapp.com/attachments/740225672525643790/889948009297760306/IMG_4250.JPG" alt="Cactus Vector Image">
+  <img src="noun_Cactus_1578234.svg" alt="Cactus Vector Image" id="cactus" title="Cactus Vector Image" width=100px height=200px>
   
   <div class="modal fade" id="deletingModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -64,5 +71,4 @@
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
 </body>
-
 </html>
