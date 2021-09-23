@@ -9,6 +9,21 @@ function newCard(){
     document.getElementById('submitForm').style.display = 'block';
 }
 
+function drawCards(){
+    let text = '<div class="accordion accordion-flush" id="accordionCards">';
+    for (var i = 0; i < cardList.length; i++) {
+        text += '<div class="row align-items-center"><div class="col-md-auto align-self-start"><br>';
+        text += '<button type="button" class="btn-close" id="close'+i+' aria-label="Close" data-bs-toggle="modal" data-bs-target="#deletingModal" onclick=showDeletingModal()></button></div>';
+        text += '<div class="col-11"><div class="accordion-item">';
+        text += '<h2 class="accordion-header" id="flush-heading'+i+'">';
+        text += '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse'+i+'" aria-expanded="false" aria-controls="flush-collapse'+i+'">'+cardList[i].title+'</button></h2>';
+        text += '<div id="flush-collapse'+i+'" class="accordion-collapse collapse" aria-labelledby="flush-heading'+i+'">';
+        text += '<div class="accordion-body">'+cardList[i].desc+'</div></div></div></div></div>';
+    }
+    text += "</div>";
+    document.getElementById("cards").innerHTML = text;
+}
+
 function createNewCard(){
     if (document.getElementById("newTitle").value == ""){
         alert("Please input the card title.");
@@ -19,15 +34,7 @@ function createNewCard(){
     else {
         const card0 = {title:document.getElementById("newTitle").value, desc:document.getElementById("newDesc").value};
         cardList.push(card0);
-        let text = '<div class="accordion accordion-flush" id="accordionCards">';
-        for (var i = 0; i < cardList.length; i++) {
-            // text += '<div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample"><div class="accordion-body">Placeholder content for this accordion. This is the first item\'s accordion body.</div></div></div><div class="accordion-item"><h2 class="accordion-header" id="flush-headingTwo"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">Accordion Item #2</button></h2><div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample"><div class="accordion-body">Placeholder content for this accordion. This is the second item\'s accordion body. </div></div></div><div class="accordion-item"><h2 class="accordion-header" id="flush-headingThree"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">Accordion Item #3</button></h2><div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample"><div class="accordion-body">Placeholder content for this accordion.</div></div></div></div>';
-            text += '<div class="accordion-item"><h2 class="accordion-header" id="flush-heading'+[i]+'"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse'+[i]+'" aria-expanded="false" aria-controls="flush-collapse'+[i]+'">'+ cardList[i].title + '</button> </h2>';
-            text += '<button type="button" class="btn-close" id="close'+[i]+' aria-label="Close" data-bs-toggle="modal" data-bs-target="#deletingModal"></button>';
-            text += '<div id="flush-collapse'+[i]+'" class="accordion-collapse collapse" aria-labelledby="flush-heading'+[i]+'" data-bs-parent="#accordionFlushHeader"> <div class="accordion-body">' + cardList[i].desc + '</div></div></div></div>';
-        }
-        document.getElementById("cards").innerHTML = text;
-
+        drawCards();
         document.getElementById('newTitle').value = "";
         document.getElementById('newDesc').value = "";
         document.getElementById('newTitleLabel').style.display = 'none';
@@ -39,32 +46,36 @@ function createNewCard(){
     }
 }
 
+function showDeletingModal(cardIndex){
+    let modalText = '<div class="modal fade" id="deletingModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">';
+    modalText += '<div class="modal-dialog">';
+    modalText += '<div class="modal-content">';
+    modalText += '<div class="modal-header">';
+    modalText += '<h5 class="modal-title" id="ModalLabel">Delete card?</h5>';
+    modalText += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>';
+    modalText += '<div class="modal-body">Are you sure you want to <strong>delete this card</strong>? This action cannot be undone.</div>';         
+    modalText += '<div class="modal-footer">';
+    modalText += '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>';
+    modalText += '<button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick=deleteCard('+cardIndex+')>Delete</button>';
+    modalText += '</div></div></div></div></div>';
+    document.getElementById('deletionModal').innerHTML = modalText;
+}
+
 function deleteCard(index){
     cardList.splice(index,1);
-    let text = '<div class="accordion accordion-flush" id="accordionCards">';
-    for (var i = 0; i < cardList.length; i++) {
-        text += '<div class="accordion-item"><h2 class="accordion-header" id="heading'+[i]+'"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse'+[i]+'" aria-expanded="false" aria-controls="collapse+">' + cardList[i].title + '</button> </h2>';
-        text += '<button type="button" class="btn-close" id="close'+[i]+' aria-label="Close" data-bs-toggle="modal" data-bs-target="#deletingModal"></button>';
-        text += '<div id="collapse'+[i]+'" class="accordion-collapse collapse" aria-labelledby="heading'+[i]+'" data-bs-parent="#accordionHeader"> <div class="accordion-body">' + cardList[i].desc + '</div></div></div></div>';
-    }
-    document.getElementById("cards").innerHTML = text;
+    drawCards();
     if (cardList[0] == null){
         document.getElementById("cards").innerHTML = null;
         document.getElementById("noCardsTitle").style.display = 'block';
         document.getElementById("noCards").style.display = 'block'
         document.getElementById("cactus").style.display = 'block';
+        document.getElementById("resetButton").style.display = 'none';
     }
 }
 
 function deleteArray(){
     let cardList = [];
-    let text = '<div class="accordion" id="accordionHeader">';
-    for (var i = 0; i < cardList.length; i++) {
-        text += '<div class="accordion-item"><h2 class="accordion-header" id="heading'+[i]+'><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse'+[i]+'" aria-expanded="false" aria-controls="collapse+">' + cardList[i].title + '</button> </h2>';
-        text += '<button type="button" class="btn-close" id="close'+[i]+' aria-label="Close" data-bs-toggle="modal" data-bs-target="#deletingModal" title="Delete card"></button>';
-        text += '<div id="collapse'+[i]+'" class="accordion-collapse collapse" aria-labelledby="heading'+[i]+'" data-bs-parent="#accordionHeader"> <div class="accordion-body">' + cardList[i].desc + '</div></div></div></div>';
-    }
-    document.getElementById("cards").innerHTML = text;
+    drawCards();
     document.getElementById("noCardsTitle").style.display = 'block';
     document.getElementById("noCards").style.display = 'block';
     document.getElementById("cactus").style.display = 'block';

@@ -1,7 +1,5 @@
 body {
     background-color: black;
-    margin-left: 50px;
-    margin-right: 50px;
 }
 
 nav {
@@ -15,24 +13,30 @@ nav {
     font-size: .75em;
 }
 
-#cardMakerButton {
+#cardCreateButton {
     margin-bottom: 10px;
     font-weight: 650;
     color: rgb(78, 77, 77);
 }
 
 #cards {
+    margin-left: 50px;
+    margin-right: 50px;
     width: 50%;
     float: left;
 }
 
 #noCardsTitle {
+    margin-left: 50px;
+    margin-right: 50px;
     color: rgb(214, 214, 214);
     text-align: center;
     font-size: 175%;
 }
 
 #noCards {
+    margin-left: 50px;
+    margin-right: 50px;
     color: rgb(214, 214, 214);
     text-align: center;
     font-size: 125%;
@@ -57,9 +61,28 @@ img {
 }
 
 label {
+    margin-left: 50px;
+    margin-right: 50px;
     color: rgb(214, 214, 214);
 }
 
-#space, #space1, #space2 {
-    color: rgb(66, 202, 243);
+input {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+#submitForm {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.accordion-button {
+    margin-left: 50px;
+    margin-right: 50px;
+    font-weight: 600;
+}
+
+#hiddenLink {
+    text-decoration: none;
+    color: rgb(214, 214, 214);
 }
