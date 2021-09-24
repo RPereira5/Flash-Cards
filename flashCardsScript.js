@@ -11,9 +11,10 @@ function newCard(){
 
 function drawCards(){
     let text = '<div class="accordion accordion-flush" id="accordionCards">';
+    console.log("Array length: "+cardList.length);
     for (var i = 0; i < cardList.length; i++) {
         text += '<div class="row align-items-center"><div class="col-md-auto align-self-start"><br>';
-        text += '<button type="button" class="btn-close" id="close'+i+' aria-label="Close" onclick=showDeletingModal('+i+') data-bs-toggle="modal" data-bs-target="#deletingModal"></button></div>';
+        text += '<button type="button" class="btn-close" id="close'+i+'" aria-label="Close" onclick=showModal('+i+') data-bs-toggle="modal" data-bs-target="#deletingModal"></button></div>';
         text += '<div class="col-11"><div class="accordion-item">';
         text += '<h2 class="accordion-header" id="flush-heading'+i+'">';
         text += '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse'+i+'" aria-expanded="false" aria-controls="flush-collapse'+i+'">'+cardList[i].title+'</button></h2>';
@@ -21,6 +22,7 @@ function drawCards(){
         text += '<div class="accordion-body">'+cardList[i].desc+'</div></div></div></div></div>';
     }
     text += "</div>";
+    console.log("text: "+text);
     document.getElementById("cards").innerHTML = text;
 }
 
@@ -46,10 +48,10 @@ function createNewCard(){
     }
 }
 
-// only gives TypeError message on first click (i.e. first click on load)
+// only gives TypeError message on first click on load
 
-function showDeletingModal(cardIndex){
-    let modalText = '<div class="modal fade" id="deletingModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
+function showModal(cardIndex){
+    var modalText = '<div class="modal fade" id="deletingModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
                     modalText += '<h5 class="modal-title" id="ModalLabel">Delete card?</h5>';
                     modalText += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>';
                 modalText += '<div class="modal-body">Are you sure you want to <strong>delete this card</strong>? This action cannot be undone.</div>';         
@@ -57,11 +59,14 @@ function showDeletingModal(cardIndex){
                     modalText += '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>';
                     modalText += '<button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick=deleteCard('+cardIndex+')>Delete</button>';
     modalText += '</div></div></div></div>';
+    console.log("showModal: "+cardIndex);
+    console.log("modalText: "+document.getElementById('deletionModal').innerHTML);
     document.getElementById('deletionModal').innerHTML = modalText;
 }
 
-function deleteCard(index){
-    cardList.splice(index,1);
+function deleteCard(thisCard){
+    console.log("deleteCard: "+thisCard);
+    cardList.splice(thisCard,1);
     drawCards();
     if (cardList[0] == null){
         document.getElementById("noCardsTitle").style.display = 'block';
@@ -69,7 +74,6 @@ function deleteCard(index){
         document.getElementById("cactus").style.display = 'block';
         document.getElementById("resetButton").style.display = 'none';
     }
-    document.getElementById('deletionModal').innerHTML = "";
 }
 
 function deleteArray(){
