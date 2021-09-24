@@ -46,17 +46,19 @@ function createNewCard(){
     }
 }
 
+// only gives TypeError message on first click (i.e. first click on load)
+
 function showDeletingModal(cardIndex){
     let modalText = '<div class="modal fade" id="deletingModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">';
-    modalText += '<div class="modal-dialog">';
-    modalText += '<div class="modal-content">';
-    modalText += '<div class="modal-header">';
-    modalText += '<h5 class="modal-title" id="ModalLabel">Delete card?</h5>';
-    modalText += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>';
-    modalText += '<div class="modal-body">Are you sure you want to <strong>delete this card</strong>? This action cannot be undone.</div>';         
-    modalText += '<div class="modal-footer">';
-    modalText += '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>';
-    modalText += '<button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick=deleteCard('+cardIndex+')>Delete</button>';
+        modalText += '<div class="modal-dialog">';
+            modalText += '<div class="modal-content">';
+                modalText += '<div class="modal-header">';
+                    modalText += '<h5 class="modal-title" id="ModalLabel">Delete card?</h5>';
+                    modalText += '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>';
+                modalText += '<div class="modal-body">Are you sure you want to <strong>delete this card</strong>? This action cannot be undone.</div>';         
+                modalText += '<div class="modal-footer">';
+                    modalText += '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>';
+                    modalText += '<button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick=deleteCard('+cardIndex+')>Delete</button>';
     modalText += '</div></div></div></div></div>';
     document.getElementById('deletionModal').innerHTML = modalText;
 }
@@ -74,10 +76,13 @@ function deleteCard(index){
 }
 
 function deleteArray(){
-    let cardList = [];
+    for (var j = cardList.length; j > 0; j--){
+        cardList.pop();
+    }
     drawCards();
+    document.getElementById("cards").innerHTML = null;
     document.getElementById("noCardsTitle").style.display = 'block';
-    document.getElementById("noCards").style.display = 'block';
+    document.getElementById("noCards").style.display = 'block'
     document.getElementById("cactus").style.display = 'block';
     document.getElementById("resetButton").style.display = 'none';
 }
