@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -26,7 +26,7 @@
     </div>
   </nav><br>
 
-  <form>
+  <form id="cardForm">
     <label for="newTitle" id="newTitleLabel" style="display:none">Title:</label>
     <input type="text" id="newTitle" name="newTitle" style="display:none"><br>
     <label for="newDesc" id="newDescLabel" style="display:none">Description:</label>
@@ -38,7 +38,7 @@
   <p id="noCardsTitle"><strong>No Cards</strong></p><p id="noCards">Click the <strong><a href="#" id="hiddenLink" onclick=newCard()>Add Card</a></strong> button above to create one.</p>
   <img src="noun_Cactus_1578234.svg" alt="Cactus Vector Image" id="cactus" title="Cactus Vector Image" width=100px height=200px>
 
-  <div id="deletionModal"><p>hello</p></div>
+  <div id="deletionModal"></div>
 
   <div class="modal fade" id="resettingModal" tabindex="-1" aria-labelledby="ResetModalLabel" aria-hidden="true">
     <div class="modal-dialog">
