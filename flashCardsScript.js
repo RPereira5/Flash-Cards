@@ -10,40 +10,57 @@ function newCard(){
     document.getElementById('submitForm').style.display = 'block';
 }
 
+function post(){
+    fetch('https://jsonplaceholder.typicode.com/todos', {
+        method: 'POST',
+        body: JSON.stringify({
+            userId: 1,
+            title: document.getElementById("newTitle").value,
+            // desc: document.getElementById("newDesc").value,
+            completed: false
+        }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+    .then(response => response.json())
+    .then(json => {console.log(json)
+        drawCards()})
+}
+
 function drawCards(){
-    fetch(/* own database will replace --> */'https://jsonplaceholder.typicode.com/todos')
+    fetch(/* will replace --> */'https://jsonplaceholder.typicode.com/todos')
     .then(response => response.json())
     .then(json => {
-        let text = '<div class="accordion accordion-flush" id="accordionCards">';
+        let text = '<div class="accordion accordion-flush" id="accordionCards"><div class="row justify-content-start"><div class="col-md-auto align-items-center">';
         for (let i = 0; i < json.length; i++) {
-            text += '<div class="row justify-content-start"><div class="col-md-auto align-items-center"><br>';
             text += '<button type="button" class="btn-close" id="close'+i+'" aria-label="Close" onclick=showModal('+i+') data-bs-toggle="modal" data-bs-target="#deletingModal"></button></div>';
             text += '<div class="col-11"><div class="accordion-item">';
             text += '<h2 class="accordion-header" id="flush-heading'+i+'">';
             text += '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse'+i+'" aria-expanded="false" aria-controls="flush-collapse'+i+'">'+json[i].title+'</button></h2>';
             text += '<div id="flush-collapse'+i+'" class="accordion-collapse collapse" aria-labelledby="flush-heading'+i+'">';
-            text += '<div class="accordion-body">'+json[i].desc+'</div></div></div></div></div>';
+            text += '<div class="accordion-body">'+json[i].desc+'</div></div></div>';
         }
-        text += "</div>";
+        text += "</div></div></div>";
         document.getElementById("cards").innerHTML = text;
     }
 )};
 
-// ORIGINAL function drawCards(){
-//     let text = '<div class="accordion accordion-flush" id="accordionCards">';
-//     console.log("Array length: "+cardList.length);
-//     for (var i = 0; i < cardList.length; i++) {
-//         text += '<div class="row align-items-center"><div class="col-md-auto align-self-start"><br>';
-//         text += '<button type="button" class="btn-close" id="close'+i+'" aria-label="Close" onclick=showModal('+i+') data-bs-toggle="modal" data-bs-target="#deletingModal"></button></div>';
-//         text += '<div class="col-11"><div class="accordion-item">';
-//         text += '<h2 class="accordion-header" id="flush-heading'+i+'">';
-//         text += '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse'+i+'" aria-expanded="false" aria-controls="flush-collapse'+i+'">'+cardList[i].title+'</button></h2>';
-//         text += '<div id="flush-collapse'+i+'" class="accordion-collapse collapse" aria-labelledby="flush-heading'+i+'">';
-//         text += '<div class="accordion-body">'+cardList[i].desc+'</div></div></div></div></div>';
-//     }
-//     text += "</div>";
-//     document.getElementById("cards").innerHTML = text;
-// }
+/* ORIGINAL function drawCards(){
+    let text = '<div class="accordion accordion-flush" id="accordionCards">';
+    console.log("Array length: "+cardList.length);
+    for (var i = 0; i < cardList.length; i++) {
+        text += '<div class="row align-items-center"><div class="col-md-auto align-self-start"><br>';
+        text += '<button type="button" class="btn-close" id="close'+i+'" aria-label="Close" onclick=showModal('+i+') data-bs-toggle="modal" data-bs-target="#deletingModal"></button></div>';
+        text += '<div class="col-11"><div class="accordion-item">';
+        text += '<h2 class="accordion-header" id="flush-heading'+i+'">';
+        text += '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse'+i+'" aria-expanded="false" aria-controls="flush-collapse'+i+'">'+cardList[i].title+'</button></h2>';
+        text += '<div id="flush-collapse'+i+'" class="accordion-collapse collapse" aria-labelledby="flush-heading'+i+'">';
+        text += '<div class="accordion-body">'+cardList[i].desc+'</div></div></div></div></div>';
+    }
+    text += "</div>";
+    document.getElementById("cards").innerHTML = text;
+} */
 
 function createNewCard(){
     if (document.getElementById("newTitle").value == ""){
@@ -55,7 +72,7 @@ function createNewCard(){
     else {
         const card0 = {title:document.getElementById("newTitle").value, desc:document.getElementById("newDesc").value};
         cardList.push(card0);
-        drawCards();
+        post(); // drawCards();
         document.getElementById('newTitle').value = "";
         document.getElementById('newDesc').value = "";
         document.getElementById('cardForm').style.display = 'none';

@@ -1,5 +1,5 @@
 body {
-    background-color: black;
+    background-color: rgb(39, 39, 39);
 }
 
 nav {
@@ -23,7 +23,6 @@ nav {
     margin-left: 50px;
     margin-right: 50px;
     width: 50%;
-    float: left;
 }
 
 #noCardsTitle {
@@ -77,8 +76,6 @@ input {
 }
 
 .accordion-button {
-    margin-left: 50px;
-    margin-right: 50px;
     font-weight: 600;
 }
 
