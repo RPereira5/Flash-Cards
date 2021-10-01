@@ -1,6 +1,7 @@
 :root {
     --primary-color: rgb(66, 202, 243);
     --secondary-color: rgb(187, 12, 12);
+    --bckg-color: rgb(39, 39, 39);
 }
 
 * {
@@ -11,6 +12,7 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: var(--bckg-color);
 }
 
 nav {
@@ -20,7 +22,7 @@ nav {
 }
 
 nav #brand {
-    color: white;
+    color: var(--bckg-color);
     margin-left: 1.5rem;
 }
 
@@ -46,7 +48,7 @@ nav #brand {
 
 .btn-edit:hover {
     background: var(--primary-color);
-    color: #fff;
+    color: var(--bckg-color);
 }
 
 .btn-delete {
@@ -56,7 +58,7 @@ nav #brand {
 
 .btn-delete:hover {
     background: var(--secondary-color);
-    color: #fff;
+    color: var(--bckg-color);
 }
 
 .btn-add {
@@ -64,7 +66,7 @@ nav #brand {
     height: 2rem;
     background: var(--primary-color);
     border: none;
-    color: #fff;
+    color: var(--bckg-color);
 }
 
 .modal-show {
@@ -74,8 +76,7 @@ nav #brand {
 .btn-modal {
     background: var(--primary-color);
     border: none;
-    color: #fff;
-    
+    color: var(--bckg-color);
 }
 
 input {
@@ -86,11 +87,22 @@ input {
     outline: none;
 }
 
+.accordion-body {
+    background-color: var(--bckg-color);
+    color: white;
+    outline: none;
+}
+
 .nav-link {
     text-decoration: none;
-    color: rgb(39, 39, 39);
+    color: white;
 }
 
 .nav-link:hover {
+    color: rgb(85, 85, 85);
+}
+
+.accordion-button {
+    background-color: var(--bckg-color);
     color: white;
 }

@@ -8,36 +8,42 @@ const editModal = document.querySelector('.edit-modal');
 const editModalForm = document.querySelector('.edit-modal .form');
 
 const btnAdd = document.querySelector('.btn-add');
+const headerBtnAdd = document.getElementById('addCardButton');
 
-const tableFlashCardsList = document.querySelector('.table-flashCardsList');
+const flashCardsList = document.querySelector('.flashCardsList');
 
 let id;
 
 // Create element and render flashCardsList
 const renderUser = doc => {
-    const tr = `
-    <tr data-id='${doc.id}'>
-        <td>${doc.data().title}</td>
-        <td>${doc.data().desc}</td>
-        <td>
-            <button class="btn btn-edit">Edit</button>
-            <button class="btn btn-delete">Delete</button>
-        </td>
-    </tr>`;
-    tableFlashCardsList.insertAdjacentHTML('beforeend', tr);
+    const accordion = `
+        <div class="accordion accordion-flush" id="accordionCards">
+            <div class="accordion-item" data-id='${doc.id}'>
+                <h2 class="accordion-header" id="flush-heading${doc.id}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${doc.id}" aria-expanded="false" aria-controls="flush-collapse${doc.id}">${doc.data().title}</button>
+                </h2>
+                <div id="flush-collapse${doc.id}" class="accordion-collapse collapse" aria-labelledby="flush-heading${doc.id}">
+                    <div class="accordion-body">${doc.data().desc}</div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-edit" id="editBtn${doc.id}">Edit</button>
+        <button class="btn btn-delete" id="editBtn${doc.id}">Delete</button>
+    `;
+    flashCardsList.insertAdjacentHTML('beforeend', accordion);
 
     // Click edit card
-    const btnEdit = document.querySelector(`[data-id='${doc.id}'] .btn-edit`)
+    const btnEdit = document.querySelector(`[data-id='${doc.id}] .btn-edit`);
     btnEdit.addEventListener('click', () => {
-        editModal.classList.add('modal-show');
+    editModal.classList.add('modal-show');
 
-        id = doc.id;
+    id = doc.id;
         editModalForm.title.value = doc.data().title;
         editModalForm.desc.value = doc.data().desc;
-    })
+    });
 
     // Click delete card
-    const btnDelete = document.querySelector(`[data-id='${doc.id}'] .btn-delete`);
+    const btnDelete = document.querySelector(`[data-id='${doc.id}] .btn-delete`);
     btnDelete.addEventListener('click', () => {
         db.collection('flashCardsList').doc(`${doc.id}`).delete().then(() => {
             console.log('Document successfully deleted!');
@@ -54,6 +60,12 @@ btnAdd.addEventListener('click', () => {
     addModalForm.title.value = '';
     addModalForm.desc.value = '';
 });
+headerBtnAdd.addEventListener('click', () => {
+    addModal.classList.add('modal-show');
+
+    addModalForm.title.value = '';
+    addModalForm.desc.value = '';
+});
 
 // Real time listener
 db.collection('flashCardsList').onSnapshot(snapshot => {
@@ -64,12 +76,12 @@ db.collection('flashCardsList').onSnapshot(snapshot => {
         if (change.type === 'removed'){
             let tr = document.querySelector(`[data-id='${change.doc.id}']`);
             let tbody = tr.parentElement;
-            tableFlashCardsList.removeChild(tbody);
+            flashCardsList.removeChild(tbody);
         }
         if (change.type === 'modified'){
             let tr = document.querySelector(`[data-id='${change.doc.id}']`);
             let tbody = tr.parentElement;
-            tableFlashCardsList.removeChild(tbody);
+            flashCardsList.removeChild(tbody);
             renderUser(change.doc);
         }
     })
@@ -110,3 +122,14 @@ editModalForm.addEventListener('submit', e => {
         editModal.classList.remove('modal-show');
     }
 });
+
+function toggleTheme(){
+    if (document.getElementById("themeToggler").innerHTML == "Switch to Dark Mode"){
+        document.getElementById("themeToggler").innerHTML = "Switch to Light Mode";
+        document.getElementById("mySheet").href = "flashCards2Dark.css";
+    }
+    else {
+        document.getElementById("themeToggler").innerHTML = "Switch to Dark Mode";
+        document.getElementById("mySheet").href = "flashCards2Light.css";
+    }
+};
