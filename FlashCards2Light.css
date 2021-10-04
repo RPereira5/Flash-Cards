@@ -13,15 +13,19 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.container.fluid {
+    margin: 0;
+    padding: 0;
+}
+
 nav {
     width: 100%;
     background-color: var(--primary-color);
     padding: 1rem;
 }
 
-nav #brand {
+#brand {
     color: white;
-    margin-left: 1.5rem;
 }
 
 .flashCardsList {
@@ -37,6 +41,7 @@ nav #brand {
     border-radius: 1rem;
     cursor: pointer;
     outline: none;
+    margin: 3px;
 }
 
 .btn-edit {
@@ -65,6 +70,7 @@ nav #brand {
     background: var(--primary-color);
     border: none;
     color: #fff;
+    margin: auto;
 }
 
 .modal-show {
@@ -75,7 +81,6 @@ nav #brand {
     background: var(--primary-color);
     border: none;
     color: #fff;
-    
 }
 
 input {
@@ -89,8 +94,21 @@ input {
 .nav-link {
     text-decoration: none;
     color: rgb(39, 39, 39);
+    text-align: right;
+}
+
+.nav-link:visited {
+    color: rgb(39, 39, 39);
 }
 
 .nav-link:hover {
     color: white;
+}
+
+#resetCardsBtn:hover {
+    color: var(--secondary-color);
+}
+
+.accordion-button {
+    padding: 1.75rem, 1.25rem;
 }

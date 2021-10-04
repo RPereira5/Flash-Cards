@@ -15,13 +15,18 @@ body {
     background-color: var(--bckg-color);
 }
 
+.container.fluid {
+    margin: 0;
+    padding: 0;
+}
+
 nav {
     width: 100%;
     background-color: var(--primary-color);
     padding: 1rem;
 }
 
-nav #brand {
+#brand {
     color: var(--bckg-color);
     margin-left: 1.5rem;
 }
@@ -39,6 +44,7 @@ nav #brand {
     border-radius: 1rem;
     cursor: pointer;
     outline: none;
+    margin: 3px;
 }
 
 .btn-edit {
@@ -67,6 +73,7 @@ nav #brand {
     background: var(--primary-color);
     border: none;
     color: var(--bckg-color);
+    margin: auto;
 }
 
 .modal-show {
@@ -98,6 +105,10 @@ input {
     color: white;
 }
 
+.nav-link:visited {
+    color: white;
+}
+
 .nav-link:hover {
     color: rgb(85, 85, 85);
 }
@@ -105,4 +116,9 @@ input {
 .accordion-button {
     background-color: var(--bckg-color);
     color: white;
+    padding: 1.75rem, 1.25rem;
+}
+
+#resetCardsBtn:hover {
+    color: var(--secondary-color);
 }

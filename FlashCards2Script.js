@@ -17,8 +17,8 @@ let id;
 // Create element and render flashCardsList
 const renderUser = doc => {
     const accordion = `
-        <div class="accordion accordion-flush" id="accordionCards">
-            <div class="accordion-item" data-id='${doc.id}'>
+        <div class="accordion accordion-flush" id="accordionCards" data-id='${doc.id}'>
+            <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-heading${doc.id}">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${doc.id}" aria-expanded="false" aria-controls="flush-collapse${doc.id}">${doc.data().title}</button>
                 </h2>
@@ -26,29 +26,28 @@ const renderUser = doc => {
                     <div class="accordion-body">${doc.data().desc}</div>
                 </div>
             </div>
-        </div>
-        <button class="btn btn-edit" id="editBtn${doc.id}">Edit</button>
-        <button class="btn btn-delete" id="editBtn${doc.id}">Delete</button>
-    `;
+            <button class="btn btn-delete" id="editBtn${doc.id}" title="Delete this card." style="float:right">Delete</button>
+            <button class="btn btn-edit" id="editBtn${doc.id}" title="Edit this card's information." style="float:right">Edit</button>
+        </div>`;
     flashCardsList.insertAdjacentHTML('beforeend', accordion);
 
     // Click edit card
-    const btnEdit = document.querySelector(`[data-id='${doc.id}] .btn-edit`);
+    const btnEdit = document.querySelector(`[data-id='${doc.id}'] .btn-edit`);
     btnEdit.addEventListener('click', () => {
-    editModal.classList.add('modal-show');
+        editModal.classList.add('modal-show');
 
-    id = doc.id;
+        id = doc.id;
         editModalForm.title.value = doc.data().title;
         editModalForm.desc.value = doc.data().desc;
     });
 
     // Click delete card
-    const btnDelete = document.querySelector(`[data-id='${doc.id}] .btn-delete`);
+    const btnDelete = document.querySelector(`[data-id='${doc.id}'] .btn-delete`);
     btnDelete.addEventListener('click', () => {
         db.collection('flashCardsList').doc(`${doc.id}`).delete().then(() => {
             console.log('Document successfully deleted!');
         }).catch(err => {
-            console.log('Error removing document', err);
+            console.log('Error removing document: ', err);
         });
     });
 }
@@ -56,7 +55,7 @@ const renderUser = doc => {
 // Click Add Card button
 btnAdd.addEventListener('click', () => {
     addModal.classList.add('modal-show');
-
+     
     addModalForm.title.value = '';
     addModalForm.desc.value = '';
 });
@@ -67,7 +66,7 @@ headerBtnAdd.addEventListener('click', () => {
     addModalForm.desc.value = '';
 });
 
-// Real time listener
+// Realtime listener
 db.collection('flashCardsList').onSnapshot(snapshot => {
     snapshot.docChanges().forEach(change => {
         if (change.type === 'added'){
