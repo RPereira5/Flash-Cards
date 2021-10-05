@@ -17,17 +17,17 @@ let id;
 // Create element and render flashCardsList
 const renderUser = doc => {
     const accordion = `
-        <div class="accordion accordion-flush" id="accordionCards" data-id='${doc.id}'>
-            <div class="accordion-item">
+        <div class="accordion accordion-flush" id="accordionCards" >
+            <div class="accordion-item" data-id='${doc.id}'>
                 <h2 class="accordion-header" id="flush-heading${doc.id}">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${doc.id}" aria-expanded="false" aria-controls="flush-collapse${doc.id}">${doc.data().title}</button>
                 </h2>
                 <div id="flush-collapse${doc.id}" class="accordion-collapse collapse" aria-labelledby="flush-heading${doc.id}">
                     <div class="accordion-body">${doc.data().desc}</div>
                 </div>
+                <button class="btn btn-delete" id="editBtn${doc.id}" title="Delete this card." style="float:right">Delete</button>
+                <button class="btn btn-edit" id="editBtn${doc.id}" title="Edit this card's information." style="float:right">Edit</button>
             </div>
-            <button class="btn btn-delete" id="editBtn${doc.id}" title="Delete this card." style="float:right">Delete</button>
-            <button class="btn btn-edit" id="editBtn${doc.id}" title="Edit this card's information." style="float:right">Edit</button>
         </div>`;
     flashCardsList.insertAdjacentHTML('beforeend', accordion);
 
@@ -73,18 +73,26 @@ db.collection('flashCardsList').onSnapshot(snapshot => {
             renderUser(change.doc);
         }
         if (change.type === 'removed'){
-            let tr = document.querySelector(`[data-id='${change.doc.id}']`);
-            let tbody = tr.parentElement;
-            flashCardsList.removeChild(tbody);
+            let accordion = document.querySelector(`[data-id='${change.doc.id}']`);
+            flashCardsList.removeChild(accordion.parentElement);
         }
         if (change.type === 'modified'){
-            let tr = document.querySelector(`[data-id='${change.doc.id}']`);
-            let tbody = tr.parentElement;
-            flashCardsList.removeChild(tbody);
+            let accordion = document.querySelector(`[data-id='${change.doc.id}']`);
+            flashCardsList.removeChild(accordion.parentElement);
             renderUser(change.doc);
         }
     })
 })
+
+// User clicks outside of modal
+window.addEventListener('click', e => {
+    if(e.target === addModal) {
+      addModal.classList.remove('modal-show');
+    }
+    if(e.target === editModal) {
+      editModal.classList.remove('modal-show');
+    }
+});
 
 // Click submit in add modal
 addModalForm.addEventListener('submit', e => {
@@ -131,4 +139,9 @@ function toggleTheme(){
         document.getElementById("themeToggler").innerHTML = "Switch to Dark Mode";
         document.getElementById("mySheet").href = "flashCards2Light.css";
     }
+};
+
+function resetCards(){
+    const emoticonArray = [":}","*.*",";P","^.^","T~T","@o@","-_-",":3",">:[","8V","8C","=I",":,)",":/","o7","o/","OTL","~.~","=_=",":D","XD","B)"];
+    console.log("Congratulations, you've found the emoticon generator: "+emoticonArray[Math.floor(Math.random()*22)]);
 };

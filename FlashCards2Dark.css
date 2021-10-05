@@ -76,17 +76,66 @@ nav {
     margin: auto;
 }
 
+.modal-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: #24232354;
+    display: none;
+}
+
+.modal-content {
+    background: rgb(58, 58, 58);
+}
+
+.myModal {
+    position: relative;
+    background: #fff;
+    text-align: center;
+    width: 25rem;
+    margin: 5rem auto;
+    -webkit-box-shadow: 0px 4px 22px -6px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 4px 22px -6px rgba(0,0,0,0.75);
+    box-shadow: 0px 4px 22px -6px rgba(0,0,0,0.75);
+}
+
+.modal-header {
+    background: rgb(58, 58, 58);
+    padding: 2rem;
+    color: #fff;
+    border: var(--bckg-color);
+}
+  
+.modal-body {
+    padding: 2rem;
+    background: rgb(80, 80, 80);
+    color: #fff;
+}
+
+.modal-footer {
+    border: var(--bckg-color);
+}
+  
+.btn-modal {
+    background: var(--primary-color);
+    border: none;
+    color: #fff;
+}
+
+.btn-reset {
+    background: var(--secondary-color);
+    border: none;
+    color: #fff;
+    width: 6.75rem;
+}
+
 .modal-show {
     display: block;
 }
 
-.btn-modal {
-    background: var(--primary-color);
-    border: none;
-    color: var(--bckg-color);
-}
-
-input {
+input, textarea {
     width: 100%;
     height: 2.2rem;
     margin-bottom: 1rem;
@@ -118,7 +167,24 @@ input {
     color: white;
     padding: 1.75rem, 1.25rem;
 }
+.accordion-header {
+    background-color: var(--bckg-color);
+}
 
 #resetCardsBtn:hover {
     color: var(--secondary-color);
+}
+
+.btnContain1 { 
+    height: 3rem;
+    position: relative;
+}
+
+.btnContain2 {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }

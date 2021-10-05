@@ -73,17 +73,55 @@ nav {
     margin: auto;
 }
 
-.modal-show {
-    display: block;
+.modal-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: #24232354;
+    display: none;
 }
 
+.myModal {
+    position: relative;
+    background: #fff;
+    text-align: center;
+    width: 25rem;
+    margin: 5rem auto;
+    -webkit-box-shadow: 0px 4px 22px -6px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 4px 22px -6px rgba(0,0,0,0.75);
+    box-shadow: 0px 4px 22px -6px rgba(0,0,0,0.75);
+}
+
+.modal-header {
+    margin-bottom: 1rem;
+    background: #f8fafb;
+    padding: 2rem;
+}
+  
+.modal-body {
+    padding: 2rem;
+}
+  
 .btn-modal {
     background: var(--primary-color);
     border: none;
     color: #fff;
 }
 
-input {
+.btn-reset {
+    background: var(--secondary-color);
+    border: none;
+    color: #fff;
+    width: 6.75rem;
+}
+
+.modal-show {
+    display: block;
+}
+
+input, textarea {
     width: 100%;
     height: 2.2rem;
     margin-bottom: 1rem;
@@ -111,4 +149,18 @@ input {
 
 .accordion-button {
     padding: 1.75rem, 1.25rem;
+}
+
+.btnContain1 { 
+    height: 3rem;
+    position: relative;
+}
+
+.btnContain2 {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
