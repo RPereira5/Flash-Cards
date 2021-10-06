@@ -7,6 +7,10 @@ const addModalForm = document.querySelector('.add-modal .form');
 const editModal = document.querySelector('.edit-modal');
 const editModalForm = document.querySelector('.edit-modal .form');
 
+// modal delete
+const deleteModal = document.querySelector('.delete-modal');
+const deleteModalButton = document.querySelector('.btn-delete-modal');
+
 const btnAdd = document.querySelector('.btn-add');
 const headerBtnAdd = document.getElementById('addCardButton');
 
@@ -23,15 +27,16 @@ const renderUser = doc => {
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${doc.id}" aria-expanded="false" aria-controls="flush-collapse${doc.id}">${doc.data().title}</button>
                 </h2>
                 <div id="flush-collapse${doc.id}" class="accordion-collapse collapse" aria-labelledby="flush-heading${doc.id}">
-                    <div class="accordion-body">${doc.data().desc}</div>
+                    <div class="accordion-body">${doc.data().desc}
+                        <button class="btn btn-delete" id="editBtn${doc.id}" title="Delete this card." style="float:right">Delete</button>
+                        <button class="btn btn-edit" id="editBtn${doc.id}" title="Edit this card's information." style="float:right">Edit</button>
+                    </div>
                 </div>
-                <button class="btn btn-delete" id="editBtn${doc.id}" title="Delete this card." style="float:right">Delete</button>
-                <button class="btn btn-edit" id="editBtn${doc.id}" title="Edit this card's information." style="float:right">Edit</button>
             </div>
         </div>`;
     flashCardsList.insertAdjacentHTML('beforeend', accordion);
 
-    // Click edit card
+    // Click edit
     const btnEdit = document.querySelector(`[data-id='${doc.id}'] .btn-edit`);
     btnEdit.addEventListener('click', () => {
         editModal.classList.add('modal-show');
@@ -41,18 +46,19 @@ const renderUser = doc => {
         editModalForm.desc.value = doc.data().desc;
     });
 
-    // Click delete card
+    // Click delete
     const btnDelete = document.querySelector(`[data-id='${doc.id}'] .btn-delete`);
     btnDelete.addEventListener('click', () => {
-        db.collection('flashCardsList').doc(`${doc.id}`).delete().then(() => {
-            console.log('Document successfully deleted!');
-        }).catch(err => {
-            console.log('Error removing document: ', err);
-        });
+        deleteModal.classList.add('modal-show');
+        id = doc.id;
+        document.getElementById('deleteModalTitle').innerHTML = `Title: ${doc.data().title}`
+        document.getElementById('deleteModalDesc').innerHTML = `Description: ${doc.data().desc}`
+        document.getElementById('deleteModalTimestamp').innerHTML = `Date Created: ${doc.data().date.toDate()}`;
+        document.getElementById('deleteModalId').innerHTML = id;
     });
 }
 
-// Click Add Card button
+// Click Add Card
 btnAdd.addEventListener('click', () => {
     addModal.classList.add('modal-show');
      
@@ -87,10 +93,13 @@ db.collection('flashCardsList').onSnapshot(snapshot => {
 // User clicks outside of modal
 window.addEventListener('click', e => {
     if(e.target === addModal) {
-      addModal.classList.remove('modal-show');
+        addModal.classList.remove('modal-show');
     }
     if(e.target === editModal) {
-      editModal.classList.remove('modal-show');
+        editModal.classList.remove('modal-show');
+    }
+    if(e.target === deleteModal) {
+        deleteModal.classList.remove('modal-show');
     }
 });
 
@@ -107,6 +116,7 @@ addModalForm.addEventListener('submit', e => {
         db.collection('flashCardsList').add({
             title: addModalForm.title.value,
             desc: addModalForm.desc.value,
+            date: new Date()
         });
         modalWrapper.classList.remove('modal-show');
     }
@@ -130,6 +140,17 @@ editModalForm.addEventListener('submit', e => {
     }
 });
 
+// Click delete in delete modal
+deleteModalButton.addEventListener('click', e => {
+    e.preventDefault();
+    db.collection('flashCardsList').doc(id).delete().then(() => {
+        console.log('Document successfully deleted!');
+    }).catch(err => {
+        console.log('Error removing document: ', err);
+    });
+})
+
+
 function toggleTheme(){
     if (document.getElementById("themeToggler").innerHTML == "Switch to Dark Mode"){
         document.getElementById("themeToggler").innerHTML = "Switch to Light Mode";
@@ -139,9 +160,4 @@ function toggleTheme(){
         document.getElementById("themeToggler").innerHTML = "Switch to Dark Mode";
         document.getElementById("mySheet").href = "flashCards2Light.css";
     }
-};
-
-function resetCards(){
-    const emoticonArray = [":}","*.*",";P","^.^","T~T","@o@","-_-",":3",">:[","8V","8C","=I",":,)",":/","o7","o/","OTL","~.~","=_=",":D","XD","B)"];
-    console.log("Congratulations, you've found the emoticon generator: "+emoticonArray[Math.floor(Math.random()*22)]);
 };
