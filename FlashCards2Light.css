@@ -112,11 +112,10 @@ nav {
     color: #fff;
 }
 
-.btn-reset {
+.btn-delete-modal {
     background: var(--secondary-color);
     border: none;
     color: #fff;
-    width: 6.75rem;
 }
 
 .modal-show {
@@ -157,10 +156,6 @@ textarea {
 
 .nav-link:hover {
     color: white;
-}
-
-#resetCardsBtn:hover {
-    color: var(--secondary-color);
 }
 
 .accordion-button {

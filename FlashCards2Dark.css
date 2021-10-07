@@ -1,5 +1,5 @@
 :root {
-    --primary-color: rgb(66, 202, 243);
+    --primary-color: #35abda;
     --secondary-color: rgb(236, 49, 49);
     --bckg-color: rgb(39, 39, 39);
     --open-accordion-color: rgb(70, 70, 70);
@@ -126,11 +126,10 @@ nav {
     color: #fff;
 }
 
-.btn-reset {
+.btn-delete-modal {
     background: var(--secondary-color);
     border: none;
     color: #fff;
-    width: 6.75rem;
 }
 
 .modal-show {
@@ -186,10 +185,6 @@ textarea {
 }
 .accordion-header {
     background-color: var(--bckg-color);
-}
-
-#resetCardsBtn:hover {
-    color: var(--secondary-color);
 }
 
 .btnContain1 { 

@@ -49,12 +49,11 @@ const renderUser = doc => {
     // Click delete
     const btnDelete = document.querySelector(`[data-id='${doc.id}'] .btn-delete`);
     btnDelete.addEventListener('click', () => {
-        deleteModal.classList.add('modal-show');
-        id = doc.id;
         document.getElementById('deleteModalTitle').innerHTML = `Title: ${doc.data().title}`
         document.getElementById('deleteModalDesc').innerHTML = `Description: ${doc.data().desc}`
         document.getElementById('deleteModalTimestamp').innerHTML = `Date Created: ${doc.data().date.toDate()}`;
-        document.getElementById('deleteModalId').innerHTML = id;
+        document.getElementById('deleteModalId').innerHTML = doc.id;
+        deleteCard(doc.id);
     });
 }
 
@@ -140,17 +139,6 @@ editModalForm.addEventListener('submit', e => {
     }
 });
 
-// Click delete in delete modal
-deleteModalButton.addEventListener('click', e => {
-    e.preventDefault();
-    db.collection('flashCardsList').doc(id).delete().then(() => {
-        console.log('Document successfully deleted!');
-    }).catch(err => {
-        console.log('Error removing document: ', err);
-    });
-})
-
-
 function toggleTheme(){
     if (document.getElementById("themeToggler").innerHTML == "Switch to Dark Mode"){
         document.getElementById("themeToggler").innerHTML = "Switch to Light Mode";
@@ -161,3 +149,17 @@ function toggleTheme(){
         document.getElementById("mySheet").href = "flashCards2Light.css";
     }
 };
+
+function deleteCard(id){
+    deleteModal.classList.add('modal-show');
+    // Click delete in delete modal
+    deleteModalButton.addEventListener('click', e => {
+        e.preventDefault();
+        db.collection('flashCardsList').doc(id).delete().then(() => {
+            console.log('Document successfully deleted!');
+            deleteModal.classList.remove('modal-show');
+        }).catch(err => {
+            console.log('Error removing document: ', err);
+        });
+    })    
+}
