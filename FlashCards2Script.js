@@ -8,8 +8,9 @@ const editModal = document.querySelector('.edit-modal');
 const editModalForm = document.querySelector('.edit-modal .form');
 
 // modal delete
+const cancelBtn = document.querySelector('.btn-secondary-modal');
 const deleteModal = document.querySelector('.delete-modal');
-const deleteModalButton = document.querySelector('.btn-delete-modal');
+
 
 const btnAdd = document.querySelector('.btn-add');
 const headerBtnAdd = document.getElementById('addCardButton');
@@ -21,7 +22,7 @@ let id;
 // Create element and render flashCardsList
 const renderUser = doc => {
     const accordion = `
-        <div class="accordion accordion-flush" id="accordionCards" >
+        <div class="accordion accordion-flush" id="accordionCards${doc.id}" >
             <div class="accordion-item" data-id='${doc.id}'>
                 <h2 class="accordion-header" id="flush-heading${doc.id}">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${doc.id}" aria-expanded="false" aria-controls="flush-collapse${doc.id}">${doc.data().title}</button>
@@ -46,21 +47,27 @@ const renderUser = doc => {
         editModalForm.desc.value = doc.data().desc;
     });
 
-    // Click delete
+    // Click delete (accordion)
     const btnDelete = document.querySelector(`[data-id='${doc.id}'] .btn-delete`);
     btnDelete.addEventListener('click', () => {
-        document.getElementById('deleteModalTitle').innerHTML = `Title: ${doc.data().title}`
-        document.getElementById('deleteModalDesc').innerHTML = `Description: ${doc.data().desc}`
-        document.getElementById('deleteModalTimestamp').innerHTML = `Date Created: ${doc.data().date.toDate()}`;
-        document.getElementById('deleteModalId').innerHTML = doc.id;
+        document.getElementById('deleteModalTitle').innerHTML = `<b>Title: </b>${doc.data().title}`
+        document.getElementById('deleteModalDesc').innerHTML = `<b>Description: </b>${doc.data().desc}`
+        document.getElementById('deleteModalTimestampCreated').innerHTML = `<b>Date Created: </b>${doc.data().dateCreated.toDate()}`;
+        document.getElementById('deleteModalTimestampModified').innerHTML = `<b>Last Modified: </b>${doc.data().dateModified.toDate()}`
         deleteCard(doc.id);
-    });
+
+        // db.collection('flashCardsList').doc(doc.id).delete().then(() => {
+        //     console.log('Document successfully deleted!');
+        // }).catch(err => {
+        //     console.log('Error removing document: ', err);
+        // });
+    })
 }
 
 // Click Add Card
 btnAdd.addEventListener('click', () => {
     addModal.classList.add('modal-show');
-     
+
     addModalForm.title.value = '';
     addModalForm.desc.value = '';
 });
@@ -115,7 +122,8 @@ addModalForm.addEventListener('submit', e => {
         db.collection('flashCardsList').add({
             title: addModalForm.title.value,
             desc: addModalForm.desc.value,
-            date: new Date()
+            dateCreated: new Date(),
+            dateModified: new Date()
         });
         modalWrapper.classList.remove('modal-show');
     }
@@ -134,10 +142,16 @@ editModalForm.addEventListener('submit', e => {
         db.collection('flashCardsList').doc(id).update({
             title: editModalForm.title.value,
             desc: editModalForm.desc.value,
+            dateModified: new Date()
         });
         editModal.classList.remove('modal-show');
     }
 });
+
+// Click cancel in delete modal
+cancelBtn.addEventListener('click', () => {
+    deleteModal.classList.remove('modal-show');
+})
 
 function toggleTheme(){
     if (document.getElementById("themeToggler").innerHTML == "Switch to Dark Mode"){
@@ -151,15 +165,18 @@ function toggleTheme(){
 };
 
 function deleteCard(id){
+    const deleteModalButton = document.querySelector('.btn-delete-modal');
     deleteModal.classList.add('modal-show');
     // Click delete in delete modal
     deleteModalButton.addEventListener('click', e => {
         e.preventDefault();
         db.collection('flashCardsList').doc(id).delete().then(() => {
-            console.log('Document successfully deleted!');
-            deleteModal.classList.remove('modal-show');
+            console.log('Document', id, 'successfully deleted!');
+            deleteModalButton.removeEventListener('click', e)
+            id = "0";
         }).catch(err => {
             console.log('Error removing document: ', err);
         });
-    })    
+        deleteModal.classList.remove('modal-show');
+    })
 }
