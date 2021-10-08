@@ -8,9 +8,9 @@ const editModal = document.querySelector('.edit-modal');
 const editModalForm = document.querySelector('.edit-modal .form');
 
 // modal delete
-const cancelBtn = document.querySelector('.btn-secondary-modal');
 const deleteModal = document.querySelector('.delete-modal');
-
+const deleteModalButton = document.querySelector('.btn-delete-modal');
+const cancelBtn = document.querySelector('.btn-secondary-modal');
 
 const btnAdd = document.querySelector('.btn-add');
 const headerBtnAdd = document.getElementById('addCardButton');
@@ -18,6 +18,9 @@ const headerBtnAdd = document.getElementById('addCardButton');
 const flashCardsList = document.querySelector('.flashCardsList');
 
 let id;
+
+const q = db.collection("flashCardsList").orderBy("title");
+console.log(q)
 
 // Create element and render flashCardsList
 const renderUser = doc => {
@@ -52,9 +55,10 @@ const renderUser = doc => {
     btnDelete.addEventListener('click', () => {
         document.getElementById('deleteModalTitle').innerHTML = `<b>Title: </b>${doc.data().title}`
         document.getElementById('deleteModalDesc').innerHTML = `<b>Description: </b>${doc.data().desc}`
-        document.getElementById('deleteModalTimestampCreated').innerHTML = `<b>Date Created: </b>${doc.data().dateCreated.toDate()}`;
-        document.getElementById('deleteModalTimestampModified').innerHTML = `<b>Last Modified: </b>${doc.data().dateModified.toDate()}`
-        deleteCard(doc.id);
+        document.getElementById('deleteModalTimestampCreated').innerHTML = `<b>Date Created: </b>${doc.data().dateCreated.toDate().toDateString()}, ${doc.data().dateCreated.toDate().toLocaleTimeString()}`;
+        document.getElementById('deleteModalTimestampModified').innerHTML = `<b>Last Modified: </b>${doc.data().dateModified.toDate().toDateString()}, ${doc.data().dateModified.toDate().toLocaleTimeString()}`
+        deleteModal.classList.add('modal-show');
+        deleteModalButton.addEventListener('click', deleteFromDB(doc.id));
 
         // db.collection('flashCardsList').doc(doc.id).delete().then(() => {
         //     console.log('Document successfully deleted!');
@@ -151,7 +155,7 @@ editModalForm.addEventListener('submit', e => {
 // Click cancel in delete modal
 cancelBtn.addEventListener('click', () => {
     deleteModal.classList.remove('modal-show');
-})
+});
 
 function toggleTheme(){
     if (document.getElementById("themeToggler").innerHTML == "Switch to Dark Mode"){
@@ -164,19 +168,11 @@ function toggleTheme(){
     }
 };
 
-function deleteCard(id){
-    const deleteModalButton = document.querySelector('.btn-delete-modal');
-    deleteModal.classList.add('modal-show');
-    // Click delete in delete modal
-    deleteModalButton.addEventListener('click', e => {
-        e.preventDefault();
-        db.collection('flashCardsList').doc(id).delete().then(() => {
-            console.log('Document', id, 'successfully deleted!');
-            deleteModalButton.removeEventListener('click', e)
-            id = "0";
-        }).catch(err => {
-            console.log('Error removing document: ', err);
-        });
-        deleteModal.classList.remove('modal-show');
-    })
+// Click delete in delete modal
+function deleteFromDB(id){
+    deleteModalButton.removeEventListener('click', deleteFromDB);
+    db.collection('flashCardsList').doc(id).delete().then(() => {
+        console.log('Document', id, 'successfully deleted!');
+    }).catch(err => console.log('Error removing document: ', err));
+    deleteModal.classList.remove('modal-show');
 }

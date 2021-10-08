@@ -1,5 +1,5 @@
 :root {
-    --primary-color: #35abda;
+    --primary-color: rgb(47, 158, 202);
     --secondary-color: rgb(236, 49, 49);
     --bckg-color: rgb(39, 39, 39);
     --open-accordion-color: rgb(70, 70, 70);
@@ -27,10 +27,18 @@ nav {
     padding: 1rem;
 }
 
+.navbar {
+    justify-content: center;
+}
+
 #brand {
     color: var(--bckg-color);
     margin-left: 1.5rem;
     font-size: 2rem; 
+}
+
+.h5 {
+    margin-bottom: 0;
 }
 
 .flashCardsList {
@@ -174,16 +182,12 @@ textarea {
     border-bottom: 3px solid var(--bckg-color);
 }
 
-.nav-link {
+.nav-link, .nav-link:visited {
     text-decoration: none;
-    color: white;
+    color: #fff;
     text-align: right;
     font-size: 1.25rem;
     font-weight: 600;
-}
-
-.nav-link:visited {
-    color: white;
 }
 
 .nav-link:hover {
@@ -228,12 +232,6 @@ textarea {
 
 .accordion-button:focus {
     box-shadow: 0 0 0 0.25rem rgb(90 90 90 / 25%)
-}
-
-.accordion-body {
-    background-color: var(--open-accordion-color);
-    color: white;
-    outline: none;
 }
 
 .action-btn-container { 
