@@ -177,7 +177,7 @@ textarea {
 
 .accordion-body {
     background-color: var(--bckg-color);
-    color: white;
+    color: #fff;
     outline: none;
     border-bottom: 3px solid var(--bckg-color);
 }
@@ -195,7 +195,7 @@ textarea {
 }
 
 .accordion-button {
-    color: white;
+    color: #fff;
     padding: 1.75rem, 1.25rem;
 }
 .accordion-header {

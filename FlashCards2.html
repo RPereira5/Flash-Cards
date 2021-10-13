@@ -16,7 +16,10 @@
                     <a class="nav-link h5" href="#" id="addCardButton">Add Card</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link h5" href="#" id="themeToggler" onclick=toggleTheme()>Switch to Dark Mode</a>
+                    <a class="nav-link h5" href="#" id="themeToggler">Switch to Dark Mode</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link h5" href="#" id="sortButton">Sort Cards</a>
                 </li>
             </ul>
         </div>
@@ -70,6 +73,21 @@
                     </div><br>
                     <button class="btn btn-secondary-modal">Cancel</button>
                     <button class="btn btn-delete-modal">Delete</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sort Modal -->
+        <div class="sort-modal modal-wrapper">
+            <div class="myModal">
+                <div class="modal-header"><h3>Sort Cards</h3></div>
+                <div class="modal-body">
+                    <button class="btn btn-modal-sort alphaAsc">Alphabetically By Title (A-Z)</button><br>
+                    <button class="btn btn-modal-sort alphaDesc">Alphabetically By Title (Z-A)</button><br>
+                    <button class="btn btn-modal-sort createdAsc">By Date Created, Ascending</button><br>
+                    <button class="btn btn-modal-sort createdDesc">By Date Created, Descending</button><br>
+                    <button class="btn btn-modal-sort editedAsc">By Last Modified, Ascending</button><br>
+                    <button class="btn btn-modal-sort editedDesc">By Last Modified, Descending</button>
                 </div>
             </div>
         </div>

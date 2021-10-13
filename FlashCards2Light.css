@@ -29,7 +29,7 @@ nav {
 }
 
 #brand {
-    color: white;
+    color: #fff;
     margin-left: 1.5rem;
     font-size: 2rem; 
 }
@@ -98,7 +98,7 @@ nav {
     height: 100%;
     left: 0;
     top: 0;
-    background: #24232354;
+    background: rgba(36, 35, 35, 32.9%);
     display: none;
 }
 
@@ -169,7 +169,7 @@ textarea {
 }
 
 .nav-link:hover {
-    color: white;
+    color: #fff;
 }
 
 .accordion-button {
@@ -243,4 +243,21 @@ textarea {
 
 .btn-secondary-modal:hover {
     color: #000;
+}
+
+.btn-modal-sort {
+    background-color: transparent;
+    width: 19rem;
+    height: 2rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    outline: none;
+    margin: 3px;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-modal-sort:hover {
+    background: var(--primary-color);
+    color: #fff;
 }
