@@ -8,20 +8,25 @@
     <link id="mySheet" rel="stylesheet" href="FlashCards2Light.css">
 </head>
 <body>
-    <nav class="navbar navbar-light">
+    <nav class="navbar navbar-light navbar-expand-lg sticky-top">
         <div class="container fluid">
             <a class="navbar-brand" id="brand"><b>Flash Card Tool</b></a>
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link h5" href="#" id="addCardButton">Add Card</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link h5" href="#" id="themeToggler">Switch to Dark Mode</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link h5" href="#" id="sortButton">Sort Cards</a>
-                </li>
-            </ul>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link h5" href="#" id="addCardButton">Add Card</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link h5" href="#" id="sortButton">Sort Cards</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link h5" href="#" id="themeToggler">Switch to Dark Mode</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
     <div class="flashCardsList"></div>
@@ -84,7 +89,7 @@
                 <div class="modal-body">
                     <button class="btn btn-modal-sort alphaAsc">Alphabetically By Title (A-Z)</button><br>
                     <button class="btn btn-modal-sort alphaDesc">Alphabetically By Title (Z-A)</button><br>
-                    <button class="btn btn-modal-sort createdAsc">By Date Created, Ascending</button><br>
+                    <button class="btn btn-modal-sort createdAsc active">By Date Created, Ascending</button><br>
                     <button class="btn btn-modal-sort createdDesc">By Date Created, Descending</button><br>
                     <button class="btn btn-modal-sort editedAsc">By Last Modified, Ascending</button><br>
                     <button class="btn btn-modal-sort editedDesc">By Last Modified, Descending</button>

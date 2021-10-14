@@ -67,8 +67,8 @@ const renderCard = doc => {
         document.getElementById('deleteModalTimestampCreated').innerHTML = `<b>Date Created: </b>${doc.data().dateCreated.toDate().toDateString()}, ${doc.data().dateCreated.toDate().toLocaleTimeString()}`;
         document.getElementById('deleteModalTimestampModified').innerHTML = `<b>Last Modified: </b>${doc.data().dateModified.toDate().toDateString()}, ${doc.data().dateModified.toDate().toLocaleTimeString()}`
         deleteModal.classList.add('modal-show');
-        deleteModalButton.addEventListener('click', deleteFromDB(doc.id));
-    })
+        deleteFromDB(doc.id);
+    });
 }
 
 // Click Add Card
@@ -86,7 +86,7 @@ headerBtnAdd.addEventListener('click', () => {
 });
 
 // Realtime listener
-db.collection('flashCardsList').orderBy("dateModified").onSnapshot((snapshot) => {
+db.collection('flashCardsList').orderBy("dateCreated").onSnapshot((snapshot) => {
     snapshot.docChanges().forEach(change => {
         if (change.type === 'added'){
             renderCard(change.doc);
@@ -159,47 +159,94 @@ editModalForm.addEventListener('submit', e => {
 });
 
 // Click sort cards
-sortBtn.addEventListener('click', () => {
-    sortModal.classList.add('modal-show');
-})
+sortBtn.addEventListener('click', () => sortModal.classList.add('modal-show'))
 
 // Click sort buttons (any)
 alphaAsc.addEventListener('click', () => {
+    flashCardsList.innerHTML = "";
     db.collection('flashCardsList').orderBy("title").get().then ((snapshot) => snapshot.docs.forEach(doc => renderCard(doc)));
     sortModal.classList.remove('modal-show')
+    alphaAsc.classList.add('active');
+    alphaDesc.classList.remove('active');
+    createdAsc.classList.remove('active');
+    createdDesc.classList.remove('active');
+    editedAsc.classList.remove('active');
+    editedDesc.classList.remove('active');
+    
 })
 alphaDesc.addEventListener('click', () => {
+    flashCardsList.innerHTML = "";
     db.collection('flashCardsList').orderBy("title", "desc").get().then ((snapshot) => snapshot.docs.forEach(doc => renderCard(doc)));
     sortModal.classList.remove('modal-show');
+    alphaDesc.classList.add('active');
+    alphaAsc.classList.remove('active');
+    createdAsc.classList.remove('active');
+    createdDesc.classList.remove('active');
+    editedAsc.classList.remove('active');
+    editedDesc.classList.remove('active');
 })
 createdAsc.addEventListener('click', () => {
+    flashCardsList.innerHTML = "";
     db.collection('flashCardsList').orderBy("dateCreated").get().then ((snapshot) => snapshot.docs.forEach(doc => renderCard(doc)));
     sortModal.classList.remove('modal-show');
+    createdAsc.classList.add('active');
+    alphaAsc.classList.remove('active');
+    alphaDesc.classList.remove('active');
+    createdDesc.classList.remove('active');
+    editedAsc.classList.remove('active');
+    editedDesc.classList.remove('active');
 })
 createdDesc.addEventListener('click', () => {
+    flashCardsList.innerHTML = "";
     db.collection('flashCardsList').orderBy("dateCreated", "desc").get().then ((snapshot) => snapshot.docs.forEach(doc => renderCard(doc)));
     sortModal.classList.remove('modal-show');
+    alphaAsc.classList.remove('active');
+    alphaDesc.classList.remove('active');
+    createdAsc.classList.remove('active');
+    createdDesc.classList.add('active');
+    editedAsc.classList.remove('active');
+    editedDesc.classList.remove('active');
 })
 editedAsc.addEventListener('click', () => {
+    flashCardsList.innerHTML = "";
     db.collection('flashCardsList').orderBy("dateModified").get().then ((snapshot) => snapshot.docs.forEach(doc => renderCard(doc)));
     sortModal.classList.remove('modal-show');
+    editedAsc.classList.add('active');
+    alphaAsc.classList.remove('active');
+    alphaDesc.classList.remove('active');
+    createdAsc.classList.remove('active');
+    createdDesc.classList.remove('active');
+    editedDesc.classList.remove('active');
 })
 editedDesc.addEventListener('click', () => {
+    flashCardsList.innerHTML = "";
     db.collection('flashCardsList').orderBy("dateModified", "desc").get().then ((snapshot) => snapshot.docs.forEach(doc => renderCard(doc)));
     sortModal.classList.remove('modal-show');
+    editedDesc.classList.add('active');
+    alphaAsc.classList.remove('active');
+    alphaDesc.classList.remove('active');
+    createdAsc.classList.remove('active');
+    createdDesc.classList.remove('active');
+    editedAsc.classList.remove('active');
 })
 
 // Click cancel in delete modal
-cancelBtn.addEventListener('click', () => {
-    deleteModal.classList.remove('modal-show');
-});
+cancelBtn.addEventListener('click', () => deleteModal.classList.remove('modal-show'));
 
+// Change theme button
 themeToggler.addEventListener("click", () => {
     // db.collection('settings').get().then ((snapshot) => console.log(snapshot.docs));
-    toggleTheme(isLightTheme)
+    if (document.getElementById("themeToggler").innerHTML === "Switch to Dark Mode"){
+        document.getElementById("themeToggler").innerHTML = "Switch to Light Mode";
+        document.getElementById("mySheet").href = "flashCards2Dark.css";
+    }
+    else {
+        document.getElementById("themeToggler").innerHTML = "Switch to Dark Mode";
+        document.getElementById("mySheet").href = "flashCards2Light.css";
+    }
 })
 
-function toggleTheme(isLightTheme){
+/* function toggleTheme(isLightTheme){
     if (isLightTheme === false){
         document.getElementById("themeToggler").innerHTML = "Switch to Light Mode";
         document.getElementById("mySheet").href = "flashCards2Dark.css";
@@ -210,13 +257,15 @@ function toggleTheme(isLightTheme){
         document.getElementById("mySheet").href = "flashCards2Light.css";
         db.collection('settings').doc(id).update({isLightTheme: false});
     }
-};
+}; */
 
 // Click delete in delete modal
 function deleteFromDB(id){
-    deleteModalButton.removeEventListener('click', deleteFromDB);
-    db.collection('flashCardsList').doc(id).delete().then(() => {
-        console.log('Document', id, 'successfully deleted!');
-    }).catch(err => console.log('Error removing document: ', err));
-    deleteModal.classList.remove('modal-show');
-}
+    deleteModalButton.addEventListener('click', (e) => {
+        db.collection('flashCardsList').doc(id).delete().then(() => {
+            console.log('Document', id, 'successfully deleted!');
+        }).catch(err => console.log('Error removing document: ', err));
+        deleteModal.classList.remove('modal-show');
+        deleteModalButton.removeEventListener('click', (e))
+    });
+};
