@@ -69,6 +69,16 @@ nav {
     color: #fff;
 }
 
+.btn-details {
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-details:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+
 .btn-delete {
     color: var(--secondary-color);
     border: 1px solid var(--secondary-color);
@@ -225,7 +235,12 @@ textarea {
     border-bottom: 3px solid #fff;
 }
 
-.card-info {
+.card-info-details {
+    text-align: left;
+    padding: 0.5rem;
+}
+
+.card-info-delete {
     border: 2px solid var(--secondary-color);
     background-color: rgba(236, 49, 49, 5%);
     text-align: left;
@@ -275,4 +290,14 @@ textarea {
 .navbar-collapse {
     flex-grow: 0;
     padding-left: 0.5rem;
+}
+
+.helpme {
+    width: 30rem;
+}
+
+.bold {
+    font-weight: bolder;
+    cursor: pointer;
+    color: var(--primary-color);
 }

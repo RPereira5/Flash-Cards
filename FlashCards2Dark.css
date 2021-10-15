@@ -67,6 +67,16 @@ nav {
     color: var(--bckg-color);
 }
 
+.btn-details {
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-details:hover {
+    background: var(--primary-color);
+    color: var(--bckg-color);
+}
+
 .btn-delete {
     color: var(--secondary-color);
     border: 1px solid var(--secondary-color);
@@ -247,7 +257,12 @@ textarea {
     transform: translateY(-50%);
 }
 
-.card-info {
+.card-info-details {
+    text-align: left;
+    padding: 0.5rem;
+}
+
+.card-info-delete {
     border: 2px solid var(--secondary-color);
     background-color: rgba(236, 49, 49, 25%);
     text-align: left;
@@ -297,4 +312,14 @@ textarea {
 .btn-secondary-modal {
     background-color: rgb(58, 58, 58);
     color: #fff;
+}
+
+.helpme {
+    width: 30rem;
+}
+
+.bold {
+    color: var(--primary-color);
+    font-weight: bolder;
+    cursor: pointer;
 }
