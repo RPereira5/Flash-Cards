@@ -1,4 +1,7 @@
 const navbar = document.querySelector('.navbar');
+const loggedOutLinks = document.querySelectorAll('.logged-out');
+const loggedInLinks = document.querySelectorAll('.logged-in');
+const accountDetails = document.querySelector('.accountDetails');
 
 const modalWrapper = document.querySelector('.modal-wrapper');
 
@@ -28,29 +31,45 @@ const createdDesc = document.querySelector('.createdDesc');
 const editedAsc = document.querySelector('.editedAsc');
 const editedDesc = document.querySelector('.editedDesc');
 
-// modal help
-const helpModal = document.querySelector('.help-modal');
-
 const btnAdd = document.querySelector('.btn-add');
 const headerBtnAdd = document.getElementById('addCardButton');
 const themeToggler = document.getElementById('themeToggler');
 const sortBtn = document.getElementById('sortButton');
-const helpBtn = document.getElementById('helpBtn');
 
 const flashCardsList = document.querySelector('.flashCardsList');
 const settings = document.querySelector('.settings');
 
-const spanAdd = document.getElementById('spanAdd');
-const spanSort = document.getElementById('spanSort');
-const spanLogin = document.getElementById('spanLogin');
-const spanSignup = document.getElementById('spanSignup');
-
 let id;
 
+const setupUI = (user) => {
+    if (user) {
+        // account info
+        db.collection('users').doc(user.uid).get().then(doc => {
+            const html = `<div>Logged in as ${user.email}</div>`;
+            accountDetails.innerHTML = html;
+        })
+
+        // toggle UI elements
+        loggedInLinks.forEach(item => item.style.display = 'block');
+        loggedOutLinks.forEach(item => item.style.display = 'none');
+    } else {
+        // hide account info
+        accountDetails.innerHTML = "";
+
+        // toggle UI elements
+        loggedInLinks.forEach(item => item.style.display = 'none');
+        loggedOutLinks.forEach(item => item.style.display = 'block');
+    }
+}
+
 // Create element and render flashCardsList
-const renderCard = doc => {
-    const accordion = `
-        <div class="accordion accordion-flush" id="accordionCards${doc.id}" >
+const renderCard = (data) => {
+    
+    if (data.length) {
+        let html = '';
+        data.forEach(doc => {
+            const accordion = `
+            <div class="accordion accordion-flush" id="accordionCards${doc.id}" >
             <div class="accordion-item" data-id='${doc.id}'>
                 <h2 class="accordion-header" id="flush-heading${doc.id}">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${doc.id}" aria-expanded="false" aria-controls="flush-collapse${doc.id}">${doc.data().title}</button>
@@ -63,8 +82,34 @@ const renderCard = doc => {
                     </div>
                 </div>
             </div>
-        </div>`;
-    flashCardsList.insertAdjacentHTML('beforeend', accordion);
+        </div>
+            `;
+            html += accordion;
+        });
+
+        cardList.innerHTML = html;
+    } else {
+        cardList.innerHTML = '<h5 class="center-align">Login to view cards</h5>'
+    }
+
+
+// const renderCard = doc => {
+//     const accordion = `
+//         <div class="accordion accordion-flush" id="accordionCards${doc.id}" >
+//             <div class="accordion-item" data-id='${doc.id}'>
+//                 <h2 class="accordion-header" id="flush-heading${doc.id}">
+//                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${doc.id}" aria-expanded="false" aria-controls="flush-collapse${doc.id}">${doc.data().title}</button>
+//                 </h2>
+//                 <div id="flush-collapse${doc.id}" class="accordion-collapse collapse" aria-labelledby="flush-heading${doc.id}">
+//                     <div class="accordion-body">${doc.data().desc}
+//                         <button class="btn btn-delete" id="deleteBtn${doc.id}" title="Delete this card." style="float:right">Delete</button>
+//                         <button class="btn btn-edit" id="editBtn${doc.id}" title="Edit this card's information." style="float:right">Edit</button>
+//                         <button class="btn btn-details" id="detailBtn${doc.id}" title="Show this card's details." style="float:right">Details</button>
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>`;
+//     flashCardsList.insertAdjacentHTML('beforeend', accordion);
 
     // Click details
     const btnDetails = document.querySelector(`[data-id='${doc.id}'] .btn-details`);
@@ -116,14 +161,6 @@ headerBtnAdd.addEventListener('click', () => {
     addModalForm.title.value = '';
     addModalForm.desc.value = '';
 });
-spanAdd.addEventListener('click', () => {
-    helpModal.classList.remove('modal-show');
-    addModal.classList.add('modal-show');
-    navbar.classList.remove('sticky-top');
-
-    addModalForm.title.value = '';
-    addModalForm.desc.value = '';
-})
 
 // Realtime listener
 db.collection('flashCardsList').orderBy("dateCreated").onSnapshot((snapshot) => {
@@ -163,10 +200,6 @@ window.addEventListener('click', e => {
     }
     if(e.target === sortModal) {
         sortModal.classList.remove('modal-show');
-        navbar.classList.add('sticky-top');
-    }
-    if(e.target === helpModal) {
-        helpModal.classList.remove('modal-show');
         navbar.classList.add('sticky-top');
     }
 });
@@ -226,22 +259,11 @@ function doSomething(id){
         deleteModalButton.removeEventListener('click', doSomething);
 }
 
-// Click help button
-helpBtn.addEventListener('click', () => {
-    helpModal.classList.add('modal-show');
-    navbar.classList.remove('sticky-top');
-});
-
 // Click sort cards
 sortBtn.addEventListener('click', () => {
     sortModal.classList.add('modal-show');
     navbar.classList.remove('sticky-top');
 });
-spanSort.addEventListener('click', () => {
-    helpModal.classList.remove('modal-show');
-    sortModal.classList.add('modal-show');
-    navbar.classList.remove('sticky-top');
-})
 
 // Click sort buttons (any)
 alphaAsc.addEventListener('click', () => {

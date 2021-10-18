@@ -314,10 +314,6 @@ textarea {
     color: #fff;
 }
 
-.helpme {
-    width: 30rem;
-}
-
 .bold {
     color: var(--primary-color);
     font-weight: bolder;

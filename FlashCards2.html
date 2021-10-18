@@ -16,17 +16,26 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link h5" href="#" id="addCardButton">Add Card</a>
+                    <li class="nav-item logged-in" style="display:none">
+                        <a class="nav-link h5" href="#" id="addCardButton" data-target="modal-create">Add Card</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link h5" href="#" id="sortButton">Sort Cards</a>
+                    <li class="nav-item logged-in" style="display:none">
+                        <a class="nav-link h5" href="#" id="sortButton" data-target="modal-sort">Sort Cards</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link h5" href="#" id="themeToggler">Switch to Dark Mode</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link h5" href="#" id="helpBtn">Help</a>
+                    <li class="nav-item logged-in" style="display:none">
+                        <a class="nav-link h5" href="#" data-target="modal-account">Account</a>
+                    </li>
+                    <li class="nav-item logged-in" style="display:none">
+                        <a class="nav-link h5" href="#" id="logout">Logout</a>
+                    </li>
+                    <li class="nav-item logged-out" style="display:none">
+                        <a class="nav-link h5" href="#" id="login" data-target="modal-login">Login</a>
+                    </li>
+                    <li class="nav-item logged-out" style="display:none">
+                        <a class="nav-link h5" href="#" id="signup" data-target="modal-signup">Sign Up</a>
                     </li>
                 </ul>
             </div>
@@ -44,7 +53,7 @@
             <div class="myModal">
                 <div class="modal-header"><h3>Add New Card</h3></div>
                 <div class="modal-body">
-                    <form class="form" autocomplete="off">
+                    <form class="form" id="add-form" autocomplete="off">
                         <input type="text" name="title" title="Your new card's title." placeholder="Title">
                         <textarea name="desc" placeholder="Description (max 500 characters)" maxlength="500" title="Your new card's description."></textarea>
                         <button class="btn btn-modal" title="Submit this card's information.">Submit</button>
@@ -116,33 +125,56 @@
             </div>
         </div>
 
-        <!-- Help Modal -->
-        <div class="help-modal modal-wrapper">
-            <div class="myModal helpme">
-                <div class="modal-header"><h3>Help</h3></div>
-                <div class="modal-body">
-                    <p style="font-size: large;">New to <b>Flash Cards Tool</b>?</p>
-                    <ul style="text-align: left">
-                        <li><span class="bold" href="#" id="spanAdd">Create your first card</span>. Add a title and description.</li>
-                        <li>Click on the new card to reveal its description, as well as various buttons:</li>
-                        <ul>
-                            <li>The "Details" button shows you your card's title, description, date and time created, and when it was last modified.</li>
-                            <li>The "Edit" button allows you to change your card's title, description, or both.</li>
-                            <li>The "Delete" button removes the card from your account.</li>
-                        </ul>
-                        <li><span class="bold" href="#" id="spanSort">Sort your cards</span> by title, date created, and date modified.</li>
-                        <li id="themeMsg">If you prefer, change the page theme to light with the "Switch to Light Theme" button.</li>
-                        <li><span class="bold" href="#" id="spanLogin">Log in</span> or <span class="bold" href="#" id="spanSignup">sign up</span> to save your cards.</li>
-                    </ul>
-                </div>
+        <!-- Signup Modal -->
+        <div id="modal-signup" class="modal">
+            <div class="modal-content">
+                <h4>Sign Up</h4><br />
+                <form id="signup-form">
+                    <div class="input-field">
+                        <input type="email" id="signup-email" required />
+                        <label for="signup-email">Email address</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" id="signup-password" required />
+                        <label for="signup-password">Your password</label>
+                    </div>
+                    <button class="btn yellow darken-2 z-depth-0">Sign Up</button>
+                </form>
             </div>
         </div>
+
+        <!-- Login Modal -->
+        <div id="modal-login" class="modal">
+            <div class="modal-content">
+                <h4>Login</h4><br />
+                <form id="login-form">
+                    <div class="input-field">
+                        <input type="email" id="login-email" required />
+                        <label for="login-email">Email address</label>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" id="login-password" required />
+                        <label for="login-password">Your password</label>
+                    </div>
+                    <button class="btn yellow darken-2 z-depth-0">Login</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Account Details Modal -->
+    <div id="modal-account" class="modal">
+        <div class="modal-content center-align">
+            <h4>Account details</h4><br />
+            <div class="account-details"></div>
+        </div>
+    </div>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
 
     <!-- TODO: Add SDKs for Firebase products that you want to use
     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-firestore.js"></script>
 
     <script>
@@ -157,9 +189,11 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
         const db = firebase.firestore();
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="FlashCards2Auth.js"></script>
     <script src="FlashCards2Script.js"></script>
 </body>
 </html>
