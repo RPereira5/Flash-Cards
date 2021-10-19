@@ -16,37 +16,32 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item logged-in" style="display:none">
-                        <a class="nav-link h5" href="#" id="addCardButton" data-target="modal-create">Add Card</a>
+                    <li class="nav-item logged-in">
+                        <a class="nav-link h5 hide" href="#" id="addCardButton">Add Card</a>
                     </li>
-                    <li class="nav-item logged-in" style="display:none">
-                        <a class="nav-link h5" href="#" id="sortButton" data-target="modal-sort">Sort Cards</a>
+                    <li class="nav-item logged-in">
+                        <a class="nav-link h5 hide" href="#" id="sortButton">Sort Cards</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link h5" href="#" id="themeToggler">Switch to Dark Mode</a>
                     </li>
-                    <li class="nav-item logged-in" style="display:none">
-                        <a class="nav-link h5" href="#" data-target="modal-account">Account</a>
+                    <li class="nav-item logged-in">
+                        <a class="nav-link h5 hide" href="#" id="accountDetails">Account</a>
                     </li>
-                    <li class="nav-item logged-in" style="display:none">
-                        <a class="nav-link h5" href="#" id="logout">Logout</a>
+                    <li class="nav-item logged-in">
+                        <a class="nav-link h5 hide" href="#" id="logout">Logout</a>
                     </li>
-                    <li class="nav-item logged-out" style="display:none">
-                        <a class="nav-link h5" href="#" id="login" data-target="modal-login">Login</a>
+                    <li class="nav-item logged-out">
+                        <a class="nav-link h5" href="#" id="login">Login</a>
                     </li>
-                    <li class="nav-item logged-out" style="display:none">
-                        <a class="nav-link h5" href="#" id="signup" data-target="modal-signup">Sign Up</a>
+                    <li class="nav-item logged-out">
+                        <a class="nav-link h5" href="#" id="signup">Sign Up</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="flashCardsList"></div>
-    <div class="btnContain1">
-        <div class="btnContain2">
-            <button class="btn btn-add" title="Add a new card.">Add Card</button>
-        </div>
-    </div>
 
         <!-- Add Modal -->
         <div class="add-modal modal-wrapper">
@@ -126,48 +121,52 @@
         </div>
 
         <!-- Signup Modal -->
-        <div id="modal-signup" class="modal">
-            <div class="modal-content">
-                <h4>Sign Up</h4><br />
-                <form id="signup-form">
-                    <div class="input-field">
-                        <input type="email" id="signup-email" required />
-                        <label for="signup-email">Email address</label>
-                    </div>
-                    <div class="input-field">
-                        <input type="password" id="signup-password" required />
-                        <label for="signup-password">Your password</label>
-                    </div>
-                    <button class="btn yellow darken-2 z-depth-0">Sign Up</button>
-                </form>
+        <div id="modal-signup" class="signup-modal modal-wrapper">
+            <div class="myModal">
+                <div class="modal-header"><h3>Sign Up</h3></div>
+                <div class="modal-body">
+                    <form id="signup-form">
+                        <div class="input-field">
+                            <input type="email" id="signup-email" placeholder="Email address" autocomplete="off" required />
+                        </div>
+                        <div class="input-field">
+                            <input type="password" id="signup-password" placeholder="Choose password (min. 6 characters)" required />
+                        </div>
+                        <button class="btn btn-modal" style="width:6rem">Sign Up</button>
+                    </form>
+                </div>
             </div>
         </div>
 
         <!-- Login Modal -->
-        <div id="modal-login" class="modal">
-            <div class="modal-content">
-                <h4>Login</h4><br />
-                <form id="login-form">
-                    <div class="input-field">
-                        <input type="email" id="login-email" required />
-                        <label for="login-email">Email address</label>
-                    </div>
-                    <div class="input-field">
-                        <input type="password" id="login-password" required />
-                        <label for="login-password">Your password</label>
-                    </div>
-                    <button class="btn yellow darken-2 z-depth-0">Login</button>
-                </form>
+        <div id="modal-login" class="login-modal modal-wrapper">
+            <div class="myModal">
+                <div class="modal-header"><h3>Login</h3></div>
+                <div class="modal-body">
+                    <form id="login-form">
+                        <div class="input-field">
+                            <input type="email" id="login-email" placeholder="Email address" required />
+                        </div>
+                        <div class="input-field">
+                            <input type="password" id="login-password" placeholder="Your password" required />
+                        </div>
+                        <button class="btn btn-modal">Login</button>
+                    </form>
+                </div>
             </div>
         </div>
 
         <!-- Account Details Modal -->
-    <div id="modal-account" class="modal">
-        <div class="modal-content center-align">
-            <h4>Account details</h4><br />
-            <div class="account-details"></div>
+        <div id="modal-account" class="modal-wrapper">
+            <div class="myModal">
+                <div class="modal-header">
+                    <h4>Account details</h4>
+                </div>
+                <div class="modal=body">
+                    <div class="account-details"></div>
+                </div>
+            </div>
         </div>
-    </div>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
@@ -193,7 +192,7 @@
         const db = firebase.firestore();
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="FlashCards2Auth.js"></script>
     <script src="FlashCards2Script.js"></script>
+    <script src="FlashCards2Auth.js"></script>
 </body>
 </html>

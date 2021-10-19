@@ -2,12 +2,17 @@
 auth.onAuthStateChanged(user => {
     if (user) {
         db.collection('flashCardsList').onSnapshot(snapshot => {
-            setupCards(snapshot.docs);
-            setupUI(user);
+            if (snapshot.docs.length <= 0) {
+                console.log("Success!");
+                flashCardsList.innerHTML = '<div class="noCardsText" style="text-align:center"><h4><strong>No Cards</strong></h4><h5>Log in to show cards.<br></h5><img src="noun_Cactus_1578234.svg" alt="Cactus Vector Image" title="Cactus" width="100px" height="200px"></div>';
+            } else {
+                renderCards(snapshot.docs);
+                setupUI(user);
+            }
         }, err => console.log(err.message));
     } else {
         setupUI();
-        setupCards([]);
+        renderCards([]);
     }
 });
 
@@ -21,7 +26,7 @@ addForm.addEventListener('submit', (e) => {
         desc: addForm['desc'].value
     }).then(() => {
         addModal.classList.remove('modal-show');
-        createForm.reset();
+        addForm.reset();
     }).catch(err => {
         console.log(err.message);
     })
@@ -65,7 +70,6 @@ loginForm.addEventListener('submit', (e) => {
 
     // log in the user
     auth.signInWithEmailAndPassword(email, password).then(cred => {
-        const modal = document.querySelector('#modal-login');
         loginModal.classList.remove('modal-show');
         loginForm.reset();
     });

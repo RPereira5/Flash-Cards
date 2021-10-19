@@ -212,20 +212,6 @@ textarea {
     background-color: var(--bckg-color);
 }
 
-.btnContain1 { 
-    height: 3rem;
-    position: relative;
-}
-
-.btnContain2 {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-}
-
 .accordion-flush .accordion-item .accordion-button {
     border-radius: 5px;
 }
@@ -242,11 +228,6 @@ textarea {
 
 .accordion-button:focus {
     box-shadow: 0 0 0 0.25rem rgb(90 90 90 / 25%)
-}
-
-.action-btn-container { 
-    height: 200px;
-    position: relative;
 }
   
 .vertical-center {
@@ -318,4 +299,12 @@ textarea {
     color: var(--primary-color);
     font-weight: bolder;
     cursor: pointer;
+}
+
+.hide {
+    display: none;
+}
+
+.noCardsText {
+    color: #ffffff9c;
 }

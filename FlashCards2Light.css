@@ -191,20 +191,6 @@ textarea {
     padding: 1.75rem, 1.25rem;
 }
 
-.btnContain1 { 
-    height: 3rem;
-    position: relative;
-}
-
-.btnContain2 {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-}
-
 .accordion-item:last-of-type .accordion-button.collapsed {
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
@@ -296,4 +282,8 @@ textarea {
     font-weight: bolder;
     cursor: pointer;
     color: var(--primary-color);
+}
+
+.hide {
+    display: none;
 }
