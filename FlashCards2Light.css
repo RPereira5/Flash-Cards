@@ -283,7 +283,3 @@ textarea {
     cursor: pointer;
     color: var(--primary-color);
 }
-
-.hide {
-    display: none;
-}

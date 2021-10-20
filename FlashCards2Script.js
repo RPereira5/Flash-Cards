@@ -1,7 +1,10 @@
 const navbar = document.querySelector('.navbar');
 const loggedOutLinks = document.querySelectorAll('.logged-out');
 const loggedInLinks = document.querySelectorAll('.logged-in');
-const accountDetails = document.querySelector('.account-details');
+
+const addBtn = document.getElementById('addCardButton');
+const themeToggler = document.getElementById('themeToggler');
+const sortBtn = document.getElementById('sortButton');
 
 const modalWrapper = document.querySelector('.modal-wrapper');
 
@@ -31,11 +34,10 @@ const createdDesc = document.querySelector('.createdDesc');
 const editedAsc = document.querySelector('.editedAsc');
 const editedDesc = document.querySelector('.editedDesc');
 
-const addBtn = document.getElementById('addCardButton');
-const themeToggler = document.getElementById('themeToggler');
-const sortBtn = document.getElementById('sortButton');
+// modal account
 const accountBtn = document.getElementById('accountDetails');
 const accountModal = document.getElementById('modal-account');
+const accountDetails = document.querySelector('.account-details');
 
 // auth
 const signupModal = document.querySelector('#modal-signup');
@@ -44,44 +46,30 @@ const loginModal = document.querySelector('#modal-login');
 const loginLink = document.querySelector('#login');
 
 const flashCardsList = document.querySelector('.flashCardsList');
-const settings = document.querySelector('.settings');
 
 let id;
 
-const setupUI = (user) => {
-    if (user) {
+const setupUI = user => {
+    if (user) { // logged in
+
         // account info
-        db.collection('users').doc(user.uid).get().then(doc => {
+        db.collection('users').doc(user.uid).get().then(_doc => {
             const html = `<div>Logged in as ${user.email}</div>`;
             accountDetails.innerHTML = html;
         })
 
         // toggle UI elements
-            // addBtn.classList.remove('hide');
-            // sortBtn.classList.remove('hide');
-            // accountBtn.classList.remove('hide');
-            // logout.classList.remove('hide');
-
-            // loginLink.classList.add('hide');
-            // signupLink.classList.add('hide');
-        loggedInLinks.forEach(item => item.classList.remove('hide'));
-        loggedOutLinks.forEach(item => item.classList.add('hide'));
+        loggedInLinks.forEach(item => item.style.display = 'block');
+        loggedOutLinks.forEach(item => item.style.display = 'none');
         
-    } else {
+    } else { // logged out
+
         // hide account info
         accountDetails.innerHTML = "";
 
         // toggle UI elements
-            // addBtn.classList.add('hide');
-            // sortBtn.classList.add('hide');
-            // accountBtn.classList.add('hide');
-            // logout.classList.add('hide');
-
-            // loginLink.classList.remove('hide');
-            // signupLink.classList.remove('hide');
-        
-        loggedInLinks.forEach(item => item.classList.add('hide'));
-        loggedOutLinks.forEach(item => item.classList.remove('hide'));
+        loggedInLinks.forEach(item => item.style.display = 'none');
+        loggedOutLinks.forEach(item => item.style.display = 'block');
     }
 }
 
@@ -91,7 +79,7 @@ const renderCards = doc => {
         <div class="accordion accordion-flush" id="accordionCards${doc.id}" >
             <div class="accordion-item" data-id='${doc.id}'>
                 <h2 class="accordion-header" id="flush-heading${doc.id}">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${doc.id}" aria-expanded="false" aria-controls="flush-collapse${doc.id}">${doc.data().title}</button>
+    <!-- bug -->    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${doc.id}" aria-expanded="false" aria-controls="flush-collapse${doc.id}">${doc.data().title}</button>
                 </h2>
                 <div id="flush-collapse${doc.id}" class="accordion-collapse collapse" aria-labelledby="flush-heading${doc.id}">
                     <div class="accordion-body">${doc.data().desc}
@@ -167,7 +155,7 @@ accountBtn.addEventListener('click', () => {
 })
 
 // Realtime listener
-db.collection('flashCardsList').orderBy("dateCreated").onSnapshot((snapshot) => {
+db.collection('flashCardsList').orderBy("dateCreated").onSnapshot(snapshot => {
     snapshot.docChanges().forEach(change => {
         if (change.type === 'added'){
             renderCards(change.doc);
@@ -237,9 +225,13 @@ addModalForm.addEventListener('submit', e => {
             desc: addModalForm.desc.value,
             dateCreated: new Date(),
             dateModified: new Date()
-        });
-        modalWrapper.classList.remove('modal-show');
-        navbar.classList.add('sticky-top');
+        }).then(() => {
+            modalWrapper.classList.remove('modal-show');
+            navbar.classList.add('sticky-top');
+            addModalForm.reset();
+        }).catch(err => {
+            console.log(err.message);
+        })
     }
 });
 
@@ -286,7 +278,7 @@ sortBtn.addEventListener('click', () => {
 // Click sort buttons (any)
 alphaAsc.addEventListener('click', () => {
     flashCardsList.innerHTML = "";
-    db.collection('flashCardsList').orderBy("title").get().then ((snapshot) => snapshot.docs.forEach(doc => renderCards(doc)));
+    db.collection('flashCardsList').orderBy("title").get().then (snapshot => snapshot.docs.forEach(doc => renderCards(doc)));
     sortModal.classList.remove('modal-show')
     alphaAsc.classList.add('active');
     alphaDesc.classList.remove('active');
@@ -298,7 +290,7 @@ alphaAsc.addEventListener('click', () => {
 });
 alphaDesc.addEventListener('click', () => {
     flashCardsList.innerHTML = "";
-    db.collection('flashCardsList').orderBy("title", "desc").get().then ((snapshot) => snapshot.docs.forEach(doc => renderCards(doc)));
+    db.collection('flashCardsList').orderBy("title", "desc").get().then (snapshot => snapshot.docs.forEach(doc => renderCards(doc)));
     sortModal.classList.remove('modal-show');
     alphaDesc.classList.add('active');
     alphaAsc.classList.remove('active');
@@ -309,7 +301,7 @@ alphaDesc.addEventListener('click', () => {
 });
 createdAsc.addEventListener('click', () => {
     flashCardsList.innerHTML = "";
-    db.collection('flashCardsList').orderBy("dateCreated").get().then ((snapshot) => snapshot.docs.forEach(doc => renderCards(doc)));
+    db.collection('flashCardsList').orderBy("dateCreated").get().then (snapshot => snapshot.docs.forEach(doc => renderCards(doc)));
     sortModal.classList.remove('modal-show');
     createdAsc.classList.add('active');
     alphaAsc.classList.remove('active');
@@ -320,7 +312,7 @@ createdAsc.addEventListener('click', () => {
 });
 createdDesc.addEventListener('click', () => {
     flashCardsList.innerHTML = "";
-    db.collection('flashCardsList').orderBy("dateCreated", "desc").get().then ((snapshot) => snapshot.docs.forEach(doc => renderCards(doc)));
+    db.collection('flashCardsList').orderBy("dateCreated", "desc").get().then (snapshot => snapshot.docs.forEach(doc => renderCards(doc)));
     sortModal.classList.remove('modal-show');
     alphaAsc.classList.remove('active');
     alphaDesc.classList.remove('active');
@@ -331,7 +323,7 @@ createdDesc.addEventListener('click', () => {
 });
 editedAsc.addEventListener('click', () => {
     flashCardsList.innerHTML = "";
-    db.collection('flashCardsList').orderBy("dateModified").get().then ((snapshot) => snapshot.docs.forEach(doc => renderCards(doc)));
+    db.collection('flashCardsList').orderBy("dateModified").get().then (snapshot => snapshot.docs.forEach(doc => renderCards(doc)));
     sortModal.classList.remove('modal-show');
     editedAsc.classList.add('active');
     alphaAsc.classList.remove('active');
@@ -342,7 +334,7 @@ editedAsc.addEventListener('click', () => {
 });
 editedDesc.addEventListener('click', () => {
     flashCardsList.innerHTML = "";
-    db.collection('flashCardsList').orderBy("dateModified", "desc").get().then ((snapshot) => snapshot.docs.forEach(doc => renderCards(doc)));
+    db.collection('flashCardsList').orderBy("dateModified", "desc").get().then (snapshot => snapshot.docs.forEach(doc => renderCards(doc)));
     sortModal.classList.remove('modal-show');
     editedDesc.classList.add('active');
     alphaAsc.classList.remove('active');
@@ -366,7 +358,7 @@ closeDtlsBtn.addEventListener('click', () => {
 
 // Change theme button
 themeToggler.addEventListener("click", () => {
-    // db.collection('settings').get().then ((snapshot) => console.log(snapshot.docs));
+    // db.collection('settings').get().then (snapshot => console.log(snapshot.docs));
     if (document.getElementById("themeToggler").innerHTML === "Switch to Dark Mode"){
         document.getElementById("themeToggler").innerHTML = "Switch to Light Mode";
         document.getElementById("mySheet").href = "flashCards2Dark.css";
