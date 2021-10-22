@@ -13,7 +13,7 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-.container.fluid {
+.container .fluid {
     margin: 0;
     padding: 0;
 }
@@ -282,4 +282,22 @@ textarea {
     font-weight: bolder;
     cursor: pointer;
     color: var(--primary-color);
+}
+
+.btn-modal-logout {
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.btn-modal-logout:hover {
+    background-color: var(--secondary-color);
+    color: #fff;
+}
+
+.account-details {
+    padding-bottom: 0.25rem;
+}
+
+h4, h3, .h4, .h3 {
+    margin-bottom: 0px;
 }

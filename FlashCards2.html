@@ -17,25 +17,22 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item logged-in">
-                        <a class="nav-link h5 hide" href="#" id="addCardButton">Add Card</a>
+                    <li class="nav-item logged-in" style="display: none">
+                        <a class="nav-link h5" href="#" id="addCardButton">Add Card</a>
                     </li>
-                    <li class="nav-item logged-in">
-                        <a class="nav-link h5 hide" href="#" id="sortButton">Sort Cards</a>
+                    <li class="nav-item logged-in" style="display: none">
+                        <a class="nav-link h5" href="#" id="sortButton">Sort Cards</a>
                     </li>
-                    <li class="nav-item logged-in">
+                    <li class="nav-item logged-in" style="display: none">
                         <a class="nav-link h5" href="#" id="themeToggler">Switch to Dark Mode</a>
                     </li>
-                    <li class="nav-item logged-in">
-                        <a class="nav-link h5 hide" href="#" id="accountDetails">Account</a>
+                    <li class="nav-item logged-in" style="display: none">
+                        <a class="nav-link h5" href="#" id="accountDetails">Account</a>
                     </li>
-                    <li class="nav-item logged-in">
-                        <a class="nav-link h5 hide" href="#" id="logout">Logout</a>
-                    </li>
-                    <li class="nav-item logged-out">
+                    <li class="nav-item logged-out" style="display: none">
                         <a class="nav-link h5" href="#" id="login">Login</a>
                     </li>
-                    <li class="nav-item logged-out">
+                    <li class="nav-item logged-out" style="display: none">
                         <a class="nav-link h5" href="#" id="signup">Sign Up</a>
                     </li>
                 </ul>
@@ -45,6 +42,7 @@
 
     <!-- Cards Render Here -->
     <div class="flashCardsList"></div>
+    <div class="noCards"></div>
 
     <!-- Add Modal -->
     <div class="add-modal modal-wrapper">
@@ -163,10 +161,11 @@
     <div id="modal-account" class="modal-wrapper">
         <div class="myModal">
             <div class="modal-header">
-                <h4>Account details</h4>
+                <h4>Account Details</h4>
             </div>
-            <div class="modal=body">
+            <div class="modal=body" style="padding:1rem">
                 <div class="account-details"></div>
+                <button class="btn btn-modal-logout" href="#" id="logout">Logout</button>
             </div>
         </div>
     </div>

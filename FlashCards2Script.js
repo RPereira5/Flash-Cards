@@ -46,6 +46,7 @@ const loginModal = document.querySelector('#modal-login');
 const loginLink = document.querySelector('#login');
 
 const flashCardsList = document.querySelector('.flashCardsList');
+const noCards = document.querySelector('.noCards');
 
 let id;
 
@@ -75,11 +76,12 @@ const setupUI = user => {
 
 // Create element and render flashCardsList
 const renderCards = doc => {
+    console.log(doc.data());
     const accordion = `
-        <div class="accordion accordion-flush" id="accordionCards${doc.id}" >
+        <div class="accordion accordion-flush" id="accordionCards${doc.id}">
             <div class="accordion-item" data-id='${doc.id}'>
                 <h2 class="accordion-header" id="flush-heading${doc.id}">
-    <!-- bug -->    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${doc.id}" aria-expanded="false" aria-controls="flush-collapse${doc.id}">${doc.data().title}</button>
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${doc.id}" aria-expanded="false" aria-controls="flush-collapse${doc.id}">${doc.data().title}</button>
                 </h2>
                 <div id="flush-collapse${doc.id}" class="accordion-collapse collapse" aria-labelledby="flush-heading${doc.id}">
                     <div class="accordion-body">${doc.data().desc}
@@ -158,6 +160,7 @@ accountBtn.addEventListener('click', () => {
 db.collection('flashCardsList').orderBy("dateCreated").onSnapshot(snapshot => {
     snapshot.docChanges().forEach(change => {
         if (change.type === 'added'){
+            console.log("Added card");
             renderCards(change.doc);
         }
         if (change.type === 'removed'){
@@ -167,6 +170,7 @@ db.collection('flashCardsList').orderBy("dateCreated").onSnapshot(snapshot => {
         if (change.type === 'modified'){
             let accordion0 = document.querySelector(`[data-id='${change.doc.id}']`);
             flashCardsList.removeChild(accordion0.parentElement);
+            console.log("Modified card");
             renderCards(change.doc);
         }
     })

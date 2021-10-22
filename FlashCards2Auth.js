@@ -3,16 +3,18 @@ auth.onAuthStateChanged(user => {
     if (user) {
         db.collection('flashCardsList').onSnapshot(snapshot => {
             if (snapshot.docs.length <= 0) {
-                console.log("Success!");
-                flashCardsList.innerHTML = '<div class="noCardsText" style="text-align:center"><h4><strong>No Cards</strong></h4><h5>Log in to show cards.<br></h5><img src="noun_Cactus_1578234.svg" alt="Cactus Vector Image" title="Cactus" width="100px" height="200px"></div>';
+                noCards.innerHTML = '<div class="noCardsText" style="text-align:center; padding:10rem"><h4><strong>No Cards</strong></h4><h5>Click Add Card to create one.<br></h5><img src="noun_Cactus_1578234.svg" alt="Cactus Vector Image" title="Cactus" width="100px" height="200px"></div>';
             } else {
-                renderCards(snapshot.docs);
+                console.log("Signed in as",user.email);
                 setupUI(user);
+                renderCards(snapshot.docs);
+                noCards.innerHTML = "";
             }
         }, err => console.log(err.message));
     } else {
+        console.log("Logged out.")
         setupUI();
-        renderCards([]);
+        noCards.innerHTML = '<div class="noCardsText" style="text-align:center; padding:10rem"><h4><strong>No Cards</strong></h4><h5>Log in to show cards.<br></h5><img src="noun_Cactus_1578234.svg" alt="Cactus Vector Image" title="Cactus" width="100px" height="200px"></div>';
     }
 });
 
@@ -41,6 +43,8 @@ const logout = document.querySelector('#logout');
 logout.addEventListener('click', e => {
     e.preventDefault();
     auth.signOut();
+    accountModal.classList.remove('modal-show');
+    navbar.classList.add('sticky-top');
 });
 
 // login

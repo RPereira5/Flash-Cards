@@ -16,7 +16,7 @@ body {
     background-color: var(--bckg-color);
 }
 
-.container.fluid {
+.container .fluid {
     margin: 0;
     padding: 0;
 }
@@ -121,7 +121,7 @@ nav {
 
 .myModal {
     position: relative;
-    background: #fff;
+    background-color: rgb(80,80,80);
     text-align: center;
     width: 25rem;
     margin: 5rem auto;
@@ -303,4 +303,23 @@ textarea {
 
 .noCardsText {
     color: #ffffff9c;
+}
+
+.btn-modal-logout {
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.btn-modal-logout:hover {
+    background-color: var(--secondary-color);
+    color: rgb(60, 60, 60);
+}
+
+.account-details {
+    padding-bottom: 0.25rem;
+    color: #fff;
+}
+
+h4, h3, .h4, .h3 {
+    margin-bottom: 0px;
 }
