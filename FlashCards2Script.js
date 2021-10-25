@@ -76,7 +76,6 @@ const setupUI = user => {
 
 // Create element and render flashCardsList
 const renderCards = doc => {
-    console.log(doc.data());
     const accordion = `
         <div class="accordion accordion-flush" id="accordionCards${doc.id}">
             <div class="accordion-item" data-id='${doc.id}'>
@@ -157,24 +156,24 @@ accountBtn.addEventListener('click', () => {
 })
 
 // Realtime listener
-db.collection('flashCardsList').orderBy("dateCreated").onSnapshot(snapshot => {
-    snapshot.docChanges().forEach(change => {
-        if (change.type === 'added'){
-            console.log("Added card");
-            renderCards(change.doc);
-        }
-        if (change.type === 'removed'){
-            let accordion0 = document.querySelector(`[data-id='${change.doc.id}']`);
-            flashCardsList.removeChild(accordion0.parentElement);
-        }
-        if (change.type === 'modified'){
-            let accordion0 = document.querySelector(`[data-id='${change.doc.id}']`);
-            flashCardsList.removeChild(accordion0.parentElement);
-            console.log("Modified card");
-            renderCards(change.doc);
-        }
-    })
-})
+// db.collection('flashCardsList').orderBy("dateCreated").onSnapshot(snapshot => {
+//     snapshot.docChanges().forEach(change => {
+//         if (change.type === 'added'){
+//             console.log("Added card");
+//             renderCards(change.doc);
+//         }
+//         if (change.type === 'removed'){
+//             let accordion0 = document.querySelector(`[data-id='${change.doc.id}']`);
+//             flashCardsList.removeChild(accordion0.parentElement);
+//         }
+//         if (change.type === 'modified'){
+//             let accordion0 = document.querySelector(`[data-id='${change.doc.id}']`);
+//             flashCardsList.removeChild(accordion0.parentElement);
+//             console.log("Modified card");
+//             renderCards(change.doc);
+//         }
+//     })
+// })
 
 // User clicks outside of modal
 window.addEventListener('click', e => {

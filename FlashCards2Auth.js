@@ -1,13 +1,13 @@
 // listen for auth status changes
 auth.onAuthStateChanged(user => {
     if (user) {
-        db.collection('flashCardsList').onSnapshot(snapshot => {
+        db.collection('flashCardsList').orderBy("dateCreated").onSnapshot(snapshot => {
             if (snapshot.docs.length <= 0) {
                 noCards.innerHTML = '<div class="noCardsText" style="text-align:center; padding:10rem"><h4><strong>No Cards</strong></h4><h5>Click Add Card to create one.<br></h5><img src="noun_Cactus_1578234.svg" alt="Cactus Vector Image" title="Cactus" width="100px" height="200px"></div>';
             } else {
                 console.log("Signed in as",user.email);
                 setupUI(user);
-                renderCards(snapshot.docs);
+                snapshot.docs.forEach(doc => renderCards(doc))
                 noCards.innerHTML = "";
             }
         }, err => console.log(err.message));
