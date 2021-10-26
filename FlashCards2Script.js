@@ -156,28 +156,34 @@ accountBtn.addEventListener('click', () => {
 })
 
 // Realtime listener
-// db.collection('flashCardsList').orderBy("dateCreated").onSnapshot(snapshot => {
-//     snapshot.docChanges().forEach(change => {
-//         if (change.type === 'added'){
-//             console.log("Added card");
-//             renderCards(change.doc);
-//         }
-//         if (change.type === 'removed'){
-//             let accordion0 = document.querySelector(`[data-id='${change.doc.id}']`);
-//             flashCardsList.removeChild(accordion0.parentElement);
-//         }
-//         if (change.type === 'modified'){
-//             let accordion0 = document.querySelector(`[data-id='${change.doc.id}']`);
-//             flashCardsList.removeChild(accordion0.parentElement);
-//             console.log("Modified card");
-//             renderCards(change.doc);
-//         }
-//     })
-// })
+function setupListener(user){
+    if (user) {
+        db.collection('flashCardsList').where("user", "==", auth.currentUser.uid).orderBy("dateCreated").onSnapshot(snapshot => {
+            if (snapshot.docs.length <= 0) {
+                noCards.innerHTML = '<div class="noCardsText" style="text-align:center; padding:10rem"><h4><strong>No Cards</strong></h4><h5>Click Add Card to create one.<br></h5><img src="noun_Cactus_1578234.svg" alt="Cactus Vector Image" title="Cactus" width="100px" height="200px"></div>';
+            } else {
+                snapshot.docChanges().forEach(change => {
+                    if (change.type === 'added'){
+                        renderCards(change.doc);
+                    }
+                    if (change.type === 'removed'){
+                        let accordion0 = document.querySelector(`[data-id='${change.doc.id}']`);
+                        flashCardsList.removeChild(accordion0.parentElement);
+                    }
+                    if (change.type === 'modified'){
+                        let accordion0 = document.querySelector(`[data-id='${change.doc.id}']`);
+                        flashCardsList.removeChild(accordion0.parentElement);
+                        renderCards(change.doc);
+                    }
+                })
+            }
+        })
+    }
+}
 
 // User clicks outside of modal
 window.addEventListener('click', e => {
-    if(e.target === addModal) {
+    if(e.target === addModal){
         addModal.classList.remove('modal-show');
         navbar.classList.add('sticky-top');
     }
@@ -185,29 +191,29 @@ window.addEventListener('click', e => {
         detailsModal.classList.remove('modal-show');
         navbar.classList.add('sticky-top');
     }
-    if(e.target === editModal) {
+    if(e.target === editModal){
         editModal.classList.remove('modal-show');
         navbar.classList.add('sticky-top');
     }
-    if(e.target === deleteModal) {
+    if(e.target === deleteModal){
         deleteModal.classList.remove('modal-show');
         navbar.classList.add('sticky-top');
     }
-    if(e.target === sortModal) {
+    if(e.target === sortModal){
         sortModal.classList.remove('modal-show');
         navbar.classList.add('sticky-top');
     }
-    if(e.target === signupModal) {
+    if(e.target === signupModal){
         signupModal.classList.remove('modal-show');
         navbar.classList.add('sticky-top');
         signupForm.reset();
     }
-    if(e.target === loginModal) {
+    if(e.target === loginModal){
         loginModal.classList.remove('modal-show');
         navbar.classList.add('sticky-top');
         loginForm.reset();
     }
-    if(e.target === accountModal) {
+    if(e.target === accountModal){
         accountModal.classList.remove('modal-show');
         navbar.classList.add('sticky-top');
     }
@@ -227,7 +233,8 @@ addModalForm.addEventListener('submit', e => {
             title: addModalForm.title.value,
             desc: addModalForm.desc.value,
             dateCreated: new Date(),
-            dateModified: new Date()
+            dateModified: new Date(),
+            user: auth.currentUser.uid
         }).then(() => {
             modalWrapper.classList.remove('modal-show');
             navbar.classList.add('sticky-top');
@@ -259,9 +266,7 @@ editModalForm.addEventListener('submit', e => {
 });
 
 // Click delete in delete modal
-function deleteFromDB(id){
-    deleteModalButton.addEventListener('click', doSomething(id));
-};
+deleteFromDB = (id) => deleteModalButton.addEventListener('click', doSomething(id));
 
 function doSomething(id){
         db.collection('flashCardsList').doc(id).delete().then(() => {
@@ -281,7 +286,7 @@ sortBtn.addEventListener('click', () => {
 // Click sort buttons (any)
 alphaAsc.addEventListener('click', () => {
     flashCardsList.innerHTML = "";
-    db.collection('flashCardsList').orderBy("title").get().then (snapshot => snapshot.docs.forEach(doc => renderCards(doc)));
+    db.collection('flashCardsList').where("user", "==", auth.currentUser.uid).orderBy("title").get().then (snapshot => snapshot.docs.forEach(doc => renderCards(doc)));
     sortModal.classList.remove('modal-show')
     alphaAsc.classList.add('active');
     alphaDesc.classList.remove('active');
@@ -293,7 +298,7 @@ alphaAsc.addEventListener('click', () => {
 });
 alphaDesc.addEventListener('click', () => {
     flashCardsList.innerHTML = "";
-    db.collection('flashCardsList').orderBy("title", "desc").get().then (snapshot => snapshot.docs.forEach(doc => renderCards(doc)));
+    db.collection('flashCardsList').where("user", "==", auth.currentUser.uid).orderBy("title", "desc").get().then (snapshot => snapshot.docs.forEach(doc => renderCards(doc)));
     sortModal.classList.remove('modal-show');
     alphaDesc.classList.add('active');
     alphaAsc.classList.remove('active');
@@ -304,7 +309,7 @@ alphaDesc.addEventListener('click', () => {
 });
 createdAsc.addEventListener('click', () => {
     flashCardsList.innerHTML = "";
-    db.collection('flashCardsList').orderBy("dateCreated").get().then (snapshot => snapshot.docs.forEach(doc => renderCards(doc)));
+    db.collection('flashCardsList').where("user", "==", auth.currentUser.uid).orderBy("dateCreated").get().then (snapshot => snapshot.docs.forEach(doc => renderCards(doc)));
     sortModal.classList.remove('modal-show');
     createdAsc.classList.add('active');
     alphaAsc.classList.remove('active');
@@ -315,7 +320,7 @@ createdAsc.addEventListener('click', () => {
 });
 createdDesc.addEventListener('click', () => {
     flashCardsList.innerHTML = "";
-    db.collection('flashCardsList').orderBy("dateCreated", "desc").get().then (snapshot => snapshot.docs.forEach(doc => renderCards(doc)));
+    db.collection('flashCardsList').where("user", "==", auth.currentUser.uid).orderBy("dateCreated", "desc").get().then (snapshot => snapshot.docs.forEach(doc => renderCards(doc)));
     sortModal.classList.remove('modal-show');
     alphaAsc.classList.remove('active');
     alphaDesc.classList.remove('active');
@@ -326,7 +331,7 @@ createdDesc.addEventListener('click', () => {
 });
 editedAsc.addEventListener('click', () => {
     flashCardsList.innerHTML = "";
-    db.collection('flashCardsList').orderBy("dateModified").get().then (snapshot => snapshot.docs.forEach(doc => renderCards(doc)));
+    db.collection('flashCardsList').where("user", "==", auth.currentUser.uid).orderBy("dateModified").get().then (snapshot => snapshot.docs.forEach(doc => renderCards(doc)));
     sortModal.classList.remove('modal-show');
     editedAsc.classList.add('active');
     alphaAsc.classList.remove('active');
@@ -337,7 +342,7 @@ editedAsc.addEventListener('click', () => {
 });
 editedDesc.addEventListener('click', () => {
     flashCardsList.innerHTML = "";
-    db.collection('flashCardsList').orderBy("dateModified", "desc").get().then (snapshot => snapshot.docs.forEach(doc => renderCards(doc)));
+    db.collection('flashCardsList').where("user", "==", auth.currentUser.uid).orderBy("dateModified", "desc").get().then (snapshot => snapshot.docs.forEach(doc => renderCards(doc)));
     sortModal.classList.remove('modal-show');
     editedDesc.classList.add('active');
     alphaAsc.classList.remove('active');

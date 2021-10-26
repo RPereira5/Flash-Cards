@@ -1,22 +1,25 @@
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch((error) => console.log(error.message));
+
 // listen for auth status changes
 auth.onAuthStateChanged(user => {
     if (user) {
-        db.collection('flashCardsList').orderBy("dateCreated").onSnapshot(snapshot => {
-            if (snapshot.docs.length <= 0) {
-                noCards.innerHTML = '<div class="noCardsText" style="text-align:center; padding:10rem"><h4><strong>No Cards</strong></h4><h5>Click Add Card to create one.<br></h5><img src="noun_Cactus_1578234.svg" alt="Cactus Vector Image" title="Cactus" width="100px" height="200px"></div>';
-            } else {
-                console.log("Signed in as",user.email);
-                setupUI(user);
-                snapshot.docs.forEach(doc => renderCards(doc))
-                noCards.innerHTML = "";
-            }
-        }, err => console.log(err.message));
+        console.log("Signed in as",user.email);
+        setupUI(user);
+        setupListener(user);
+        noCards.innerHTML = "";
     } else {
         console.log("Logged out.")
         setupUI();
+        flashCardsList.innerHTML = "";
         noCards.innerHTML = '<div class="noCardsText" style="text-align:center; padding:10rem"><h4><strong>No Cards</strong></h4><h5>Log in to show cards.<br></h5><img src="noun_Cactus_1578234.svg" alt="Cactus Vector Image" title="Cactus" width="100px" height="200px"></div>';
     }
 });
+
+// check which user is signed in
+const user = auth.currentUser;
+if (user){
+    
+} else {}
 
 // signup
 const signupForm = document.querySelector('#signup-form');
