@@ -1,4 +1,4 @@
-auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch((error) => console.log(error.message));
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(error => console.log(error.message));
 
 // listen for auth status changes
 auth.onAuthStateChanged(user => {
@@ -14,12 +14,6 @@ auth.onAuthStateChanged(user => {
         noCards.innerHTML = '<div class="noCardsText" style="text-align:center; padding:10rem"><h4><strong>No Cards</strong></h4><h5>Log in to show cards.<br></h5><img src="noun_Cactus_1578234.svg" alt="Cactus Vector Image" title="Cactus" width="100px" height="200px"></div>';
     }
 });
-
-// check which user is signed in
-const user = auth.currentUser;
-if (user){
-    
-} else {}
 
 // signup
 const signupForm = document.querySelector('#signup-form');
@@ -63,5 +57,7 @@ loginForm.addEventListener('submit', e => {
     auth.signInWithEmailAndPassword(email, password).then(_cred => {
         loginModal.classList.remove('modal-show');
         loginForm.reset();
-    });
+    }).catch(err => {
+        console.log(err.message);
+    })
 });

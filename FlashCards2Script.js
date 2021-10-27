@@ -124,7 +124,7 @@ const renderCards = doc => {
             document.getElementById('deleteModalTimestampModified').innerHTML = `<b>Last Modified: </b>${doc.data().dateModified.toDate().toDateString()}, ${doc.data().dateModified.toDate().toLocaleTimeString()}`
             deleteModal.classList.add('modal-show');
             navbar.classList.remove('sticky-top');
-            deleteFromDB(doc.id);
+            confirmDelete(doc.id);
         });
 }
 
@@ -266,15 +266,17 @@ editModalForm.addEventListener('submit', e => {
 });
 
 // Click delete in delete modal
-deleteFromDB = (id) => deleteModalButton.addEventListener('click', doSomething(id));
+function confirmDelete(id){
+    deleteModalButton.addEventListener('click', deleteFromDB(id))
+};
 
-function doSomething(id){
-        db.collection('flashCardsList').doc(id).delete().then(() => {
-            console.log('Document', id, 'successfully deleted!');
-        }).catch(err => console.log('Error removing document: ', err));
-        deleteModal.classList.remove('modal-show');
-        navbar.classList.add('sticky-top');
-        deleteModalButton.removeEventListener('click', doSomething);
+function deleteFromDB(id){
+    db.collection('flashCardsList').doc(id).delete().then(() => {
+        console.log('Document', id, 'successfully deleted!');
+    }).catch(err => console.log('Error removing document: ', err));
+    deleteModal.classList.remove('modal-show');
+    navbar.classList.add('sticky-top');
+    deleteModalButton.removeEventListener('click', deleteFromDB);
 }
 
 // Click sort cards
@@ -366,7 +368,6 @@ closeDtlsBtn.addEventListener('click', () => {
 
 // Change theme button
 themeToggler.addEventListener("click", () => {
-    // db.collection('settings').get().then (snapshot => console.log(snapshot.docs));
     if (document.getElementById("themeToggler").innerHTML === "Switch to Dark Mode"){
         document.getElementById("themeToggler").innerHTML = "Switch to Light Mode";
         document.getElementById("mySheet").href = "flashCards2Dark.css";
