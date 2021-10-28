@@ -323,3 +323,13 @@ textarea {
 h4, h3, .h4, .h3 {
     margin-bottom: 0px;
 }
+
+.span-link {
+    text-decoration: none;
+    color: #ffffff9c;
+    font-weight: 600;
+}
+
+.span-link:hover {
+    color: #ffffff9c;
+}

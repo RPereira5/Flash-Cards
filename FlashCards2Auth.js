@@ -11,7 +11,17 @@ auth.onAuthStateChanged(user => {
         console.log("Logged out.")
         setupUI();
         flashCardsList.innerHTML = "";
-        noCards.innerHTML = '<div class="noCardsText" style="text-align:center; padding:10rem"><h4><strong>No Cards</strong></h4><h5>Log in to show cards.<br></h5><img src="noun_Cactus_1578234.svg" alt="Cactus Vector Image" title="Cactus" width="100px" height="200px"></div>';
+        noCards.innerHTML = '<div class="noCardsText" style="text-align:center; padding:10rem"><h4><strong>No Cards</strong></h4><h5><a href="#" class="login-nocards span-link">Log in</a> or <a href="#" class="signup-nocards span-link">sign up</a> to show cards.<br></h5><img src="noun_Cactus_1578234.svg" alt="Cactus Vector Image" title="Cactus" width="100px" height="200px"></div>';
+        const noCardsLoginLink = document.querySelector('.login-nocards');
+        noCardsLoginLink.addEventListener('click', () => {
+            loginModal.classList.add('modal-show');
+            navbar.classList.remove('sticky-top');
+        })
+        const noCardsSignupLink = document.querySelector('.signup-nocards');
+        noCardsSignupLink.addEventListener('click', () => {
+            signupModal.classList.add('modal-show');
+            navbar.classList.remove('sticky-top');
+        })
     }
 });
 

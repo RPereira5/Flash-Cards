@@ -137,7 +137,7 @@ const renderCards = doc => {
 }
 
 // Click Add Card 
-    addBtn.addEventListener('click', () => {
+addBtn.addEventListener('click', () => {
     addModal.classList.add('modal-show');
     navbar.classList.remove('sticky-top');
 
@@ -168,11 +168,23 @@ function setupListener(user){
     if (user) {
         db.collection('flashCardsList').where("user", "==", auth.currentUser.uid).orderBy("dateCreated").onSnapshot(snapshot => {
             if (snapshot.docs.length <= 0) {
-                noCards.innerHTML = '<div class="noCardsText" style="text-align:center; padding:10rem"><h4><strong>No Cards</strong></h4><h5>Click Add Card to create one.<br></h5><img src="noun_Cactus_1578234.svg" alt="Cactus Vector Image" title="Cactus" width="100px" height="200px"></div>';
+                noCards.innerHTML = '<div class="noCardsText" style="text-align:center; padding:10rem"><h4><strong>No Cards</strong></h4><h5>Click <a href="#" class="add-nocards span-link">Add Card</a> to create one.<br></h5><img src="noun_Cactus_1578234.svg" alt="Cactus Vector Image" title="Cactus" width="100px" height="200px"></div>';
+                const noCardsAddLink = document.querySelector('.add-nocards');
+                flashCardsList.innerHTML = "";
+                noCardsAddLink.addEventListener('click', () => {
+                    addModal.classList.add('modal-show');
+                    navbar.classList.remove('sticky-top');
+            
+                    addModalForm.title.value = '';
+                    addModalForm.desc.value = '';
+                })
             } else {
                 snapshot.docChanges().forEach(change => {
                     if (change.type === 'added'){
                         renderCards(change.doc);
+                        if (noCards.innerHTML !== ""){
+                            noCards.innerHTML = "";
+                        }
                     }
                     if (change.type === 'removed'){
                         let accordion0 = document.querySelector(`[data-id='${change.doc.id}']`);

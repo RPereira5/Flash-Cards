@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flash Cards 2</title>
+    <link rel="icon" href="flash-cards-clipart.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link id="mySheet" rel="stylesheet" href="FlashCards2Light.css">
 </head>
@@ -18,22 +19,22 @@
             <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item logged-in" style="display: none">
-                        <a class="nav-link h5" href="#" id="addCardButton">Add Card</a>
+                        <a class="nav-link h5" href="#" id="addCardButton" title="Add a new card.">Add Card</a>
                     </li>
                     <li class="nav-item logged-in" style="display: none">
-                        <a class="nav-link h5" href="#" id="sortButton">Sort Cards</a>
+                        <a class="nav-link h5" href="#" id="sortButton" title="Sort your cards.">Sort Cards</a>
                     </li>
                     <li class="nav-item logged-in" style="display: none">
-                        <a class="nav-link h5" href="#" id="themeToggler">Switch to Dark Mode</a>
+                        <a class="nav-link h5" href="#" id="themeToggler" title="Switch between dark and light theme.">Switch to Dark Mode</a>
                     </li>
                     <li class="nav-item logged-in" style="display: none">
-                        <a class="nav-link h5" href="#" id="accountDetails">Account</a>
+                        <a class="nav-link h5" href="#" id="accountDetails" title="View your account details or sign out.">Account</a>
                     </li>
                     <li class="nav-item logged-out" style="display: none">
-                        <a class="nav-link h5" href="#" id="login">Login</a>
+                        <a class="nav-link h5" href="#" id="login" title="Log in to Flash Cards Tool.">Login</a>
                     </li>
                     <li class="nav-item logged-out" style="display: none">
-                        <a class="nav-link h5" href="#" id="signup">Sign Up</a>
+                        <a class="nav-link h5" href="#" id="signup" title="Sign up to save your cards to an account.">Sign Up</a>
                     </li>
                 </ul>
             </div>
@@ -50,7 +51,7 @@
             <div class="modal-header"><h3>Add New Card</h3></div>
             <div class="modal-body">
                 <form class="form" id="add-form" autocomplete="off">
-                    <input type="text" name="title" title="Your new card's title." placeholder="Title">
+                    <input type="text" name="title" placeholder="Title" title="Your new card's title.">
                     <textarea name="desc" placeholder="Description (max 500 characters)" maxlength="500" title="Your new card's description."></textarea>
                     <button class="btn btn-modal" title="Submit this card's information.">Submit</button>
                 </form>
@@ -69,7 +70,7 @@
                     <p id="detailsModalTimestampCreated"><b>Date Created:</b></p>
                     <p id="detailsModalTimestampModified"><b>Last Modified:</b></p>
                 </div><br>
-                <button class="btn btn-modal close-details-btn">Close</button>
+                <button class="btn btn-modal close-details-btn" title="Close this modal.">Close</button>
             </div>
         </div>
     </div>
@@ -80,9 +81,9 @@
             <div class="modal-header"><h3>Edit Card</h3></div>
             <div class="modal-body">
                 <form class="form" autocomplete="off">
-                    <input type="text" name="title" placeholder="Title">
-                    <textarea name="desc" placeholder="Description (max 500 characters)" maxlength="500"></textarea>
-                    <button class="btn btn-modal">Save</button>
+                    <input type="text" name="title" placeholder="Title" title="Your card's new title.">
+                    <textarea name="desc" placeholder="Description (max 500 characters)" maxlength="500" title="Your card's new description."></textarea>
+                    <button class="btn btn-modal" title="Save these details and overwrite this card's current details.">Save</button>
                 </form>
             </div>
         </div>
@@ -100,8 +101,8 @@
                     <p id="deleteModalTimestampCreated"><b>Date Created:</b></p>
                     <p id="deleteModalTimestampModified"><b>Last Modified:</b></p>
                 </div><br>
-                <button class="btn btn-secondary-modal">Cancel</button>
-                <button class="btn btn-delete-modal">Delete</button>
+                <button class="btn btn-secondary-modal" title="Close this modal without deleting.">Cancel</button>
+                <button class="btn btn-delete-modal" title="Permanently delete this card.">Delete</button>
             </div>
         </div>
     </div>
@@ -111,12 +112,12 @@
         <div class="myModal">
             <div class="modal-header"><h3>Sort Cards</h3></div>
             <div class="modal-body">
-                <button class="btn btn-modal-sort alphaAsc">Alphabetically By Title (A-Z)</button><br>
-                <button class="btn btn-modal-sort alphaDesc">Alphabetically By Title (Z-A)</button><br>
-                <button class="btn btn-modal-sort createdAsc active">By Date Created, Ascending</button><br>
-                <button class="btn btn-modal-sort createdDesc">By Date Created, Descending</button><br>
-                <button class="btn btn-modal-sort editedAsc">By Last Modified, Ascending</button><br>
-                <button class="btn btn-modal-sort editedDesc">By Last Modified, Descending</button>
+                <button class="btn btn-modal-sort alphaAsc" title="Sort these cards by title, in alphabetical order.">Alphabetically By Title (A-Z)</button><br>
+                <button class="btn btn-modal-sort alphaDesc" title="Sort these cards by title, in reverse alphabetical order.">Alphabetically By Title (Z-A)</button><br>
+                <button class="btn btn-modal-sort createdAsc active" title="Sort these cards by date Created, from oldest to newest. Cards are sorted like this by default.">By Date Created, Ascending</button><br>
+                <button class="btn btn-modal-sort createdDesc" title="Sort these cards by date created, from newest to oldest.">By Date Created, Descending</button><br>
+                <button class="btn btn-modal-sort editedAsc" title="Sort these cards by last modified, from least to most recent.">By Last Modified, Ascending</button><br>
+                <button class="btn btn-modal-sort editedDesc" title="Sort these cards by last modified, from most to least recent.">By Last Modified, Descending</button>
             </div>
         </div>
     </div>
@@ -128,12 +129,12 @@
             <div class="modal-body">
                 <form id="signup-form">
                     <div class="input-field">
-                        <input type="email" id="signup-email" placeholder="Email address" autocomplete="off" required>
+                        <input type="email" id="signup-email" placeholder="Email address" autocomplete="off" title="The email address you would like to associate with your account. This cannot be changed later." required>
                     </div>
                     <div class="input-field">
-                        <input type="password" id="signup-password" placeholder="Choose password (min. 6 characters)" required>
+                        <input type="password" id="signup-password" placeholder="Choose password (min. 6 characters)" title="The password you would like to use to secure your account. Choose a unique password you can remember." required>
                     </div>
-                    <button class="btn btn-modal" style="width:6rem">Sign Up</button>
+                    <button class="btn btn-modal" style="width:6rem" title="Confirm these details.">Sign Up</button>
                 </form>
             </div>
         </div>
@@ -146,12 +147,12 @@
             <div class="modal-body">
                 <form id="login-form">
                     <div class="input-field">
-                        <input type="email" id="login-email" placeholder="Email address" required>
+                        <input type="email" id="login-email" placeholder="Email address" title="The email address you used to sign up." required>
                     </div>
                     <div class="input-field">
-                        <input type="password" id="login-password" placeholder="Your password" required>
+                        <input type="password" id="login-password" placeholder="Your password" title="The password associated with your account." required>
                     </div>
-                    <button class="btn btn-modal">Login</button>
+                    <button class="btn btn-modal" title="Log in to Flash Cards Tool.">Login</button>
                 </form>
             </div>
         </div>
@@ -165,7 +166,7 @@
             </div>
             <div class="modal=body" style="padding:1rem">
                 <div class="account-details"></div>
-                <button class="btn btn-modal-logout" href="#" id="logout">Logout</button>
+                <button class="btn btn-modal-logout" href="#" id="logout" title="Log out of Flash Cards Tool.">Logout</button>
             </div>
         </div>
     </div>

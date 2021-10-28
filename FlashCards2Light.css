@@ -178,7 +178,6 @@ textarea {
 .nav-link, .nav-link:visited {
     text-decoration: none;
     color: rgb(39, 39, 39);
-    /* text-align: right; */
     font-size: 1.25rem;
     font-weight: 600;
 }
@@ -300,4 +299,14 @@ textarea {
 
 h4, h3, .h4, .h3 {
     margin-bottom: 0px;
+}
+
+.span-link {
+    text-decoration: none;
+    color: #212529;
+    font-weight: 600;
+}
+
+.span-link:hover {
+    color: #212529;
 }
