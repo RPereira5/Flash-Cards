@@ -115,7 +115,7 @@ const renderCards = doc => {
             editModalForm.desc.value = doc.data().desc;
         });
 
-        // Click delete (accordion)
+        // Click delete
         const btnDelete = document.querySelector(`[data-id='${doc.id}'] .btn-delete`);
         btnDelete.addEventListener('click', () => {
             document.getElementById('deleteModalTitle').innerHTML = `<b>Title: </b>${doc.data().title}`
@@ -124,7 +124,15 @@ const renderCards = doc => {
             document.getElementById('deleteModalTimestampModified').innerHTML = `<b>Last Modified: </b>${doc.data().dateModified.toDate().toDateString()}, ${doc.data().dateModified.toDate().toLocaleTimeString()}`
             deleteModal.classList.add('modal-show');
             navbar.classList.remove('sticky-top');
-            confirmDelete(doc.id);
+            let id = doc.id
+            deleteModalButton.addEventListener('click', deleteFromDB => {
+                db.collection('flashCardsList').doc(id).delete().then(() => {
+                    console.log('Document', id, 'successfully deleted!');
+                    deleteModal.classList.remove('modal-show');
+                    navbar.classList.add('sticky-top');
+                }).catch(err => console.log('Error removing document: ', err));
+                deleteModalButton.removeEventListener('click', deleteFromDB);
+            });
         });
 }
 
@@ -264,20 +272,6 @@ editModalForm.addEventListener('submit', e => {
         navbar.classList.add('sticky-top');
     }
 });
-
-// Click delete in delete modal
-function confirmDelete(id){
-    deleteModalButton.addEventListener('click', deleteFromDB(id))
-};
-
-function deleteFromDB(id){
-    db.collection('flashCardsList').doc(id).delete().then(() => {
-        console.log('Document', id, 'successfully deleted!');
-    }).catch(err => console.log('Error removing document: ', err));
-    deleteModal.classList.remove('modal-show');
-    navbar.classList.add('sticky-top');
-    deleteModalButton.removeEventListener('click', deleteFromDB);
-}
 
 // Click sort cards
 sortBtn.addEventListener('click', () => {
