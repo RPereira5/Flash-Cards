@@ -1,0 +1,303 @@
+:root {
+    --primary-color: rgb(66, 202, 243);
+    --secondary-color: rgb(189, 32, 32);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.container .fluid {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    justify-content: center;
+}
+
+nav {
+    width: 100%;
+    background-color: var(--primary-color);
+    padding: 1rem;
+    
+}
+
+.nav {
+    list-style: none;
+}
+
+#brand {
+    color: #fff;
+    margin-left: 1.5rem;
+    font-size: 2rem; 
+}
+
+.h5 {
+    margin-bottom: 0;
+}
+
+.flashCardsList {
+    width: 90%;
+    margin: 2rem auto;
+    border-collapse: collapse;
+}
+
+.btn {
+    background: transparent;
+    width: 5rem;
+    height: 2rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    outline: none;
+    margin: 3px;
+}
+
+.btn-edit {
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-edit:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.btn-details {
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-details:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.btn-delete {
+    color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+}
+
+.btn-delete:hover {
+    background: var(--secondary-color);
+    color: #fff;
+}
+
+.btn-add {
+    width: 6rem;
+    height: 2rem;
+    background: var(--primary-color);
+    border: none;
+    color: #fff;
+    margin: auto;
+}
+
+@keyframes animatetop {
+    from {
+      top: -300px; opacity: 0;
+    }
+    to {
+      top: 0; opacity: 1;
+    }
+}
+
+.modal-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(36, 35, 35, 32.9%);
+    display: none;
+}
+
+.myModal {
+    position: relative;
+    background: #fff;
+    text-align: center;
+    width: 25rem;
+    margin: 5rem auto;
+    -webkit-box-shadow: 0px 4px 22px -6px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 4px 22px -6px rgba(0,0,0,0.75);
+    box-shadow: 0px 4px 22px -6px rgba(0,0,0,0.75);
+    animation-name: animatetop;
+    animation-duration: .4s;
+}
+
+.modal-header {
+    background: #f8fafb;
+    padding: 2rem;
+}
+  
+.modal-body {
+    padding: 2rem;
+}
+  
+.btn-modal {
+    background: var(--primary-color);
+    border: none;
+    color: #fff;
+}
+
+.btn-delete-modal {
+    background: var(--secondary-color);
+    border: none;
+    color: #fff;
+}
+
+.modal-show {
+    display: block;
+}
+
+input {
+    width: 100%;
+    height: 2.2rem;
+    margin-bottom: 1rem;
+    text-indent: 0.5rem;
+    outline: none;
+}
+
+textarea {
+    width: 100%;
+    height: 35px;
+    margin-bottom: 1rem;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 9px;
+    scroll-padding-bottom: auto;
+    outline: none;
+}
+
+.nav-link, .nav-link:visited {
+    text-decoration: none;
+    color: rgb(39, 39, 39);
+    /* text-align: right; */
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.nav-link:hover {
+    color: #fff;
+}
+
+.accordion-button {
+    padding: 1.75rem, 1.25rem;
+}
+
+.accordion-item:last-of-type .accordion-button.collapsed {
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.accordion-flush .accordion-item .accordion-button {
+    border-radius: 5px;
+}
+
+.accordion-button:not(.collapsed) {
+    color: #000;
+    background-color: rgb(204, 242, 255);
+}
+
+.accordion-button:focus {
+    border-color: #fff;
+    box-shadow: 0 0 0 0.25rem rgb(0 174 255 / 25%);
+}
+
+.accordion-body {
+    background-color: #fff;
+    outline: none;
+    border-bottom: 3px solid #fff;
+}
+
+.accordion-button.collapsed {
+    background-color: rgb(204, 242, 255);
+    border-bottom: 3px solid #fff;
+}
+
+.card-info-details {
+    text-align: left;
+    padding: 0.5rem;
+}
+
+.card-info-delete {
+    border: 2px solid var(--secondary-color);
+    background-color: rgba(236, 49, 49, 5%);
+    text-align: left;
+    padding: 0.5rem;
+}
+
+.accordion-button::after {
+    background-image: url("accordion_button_dark.svg");
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: url("accordion_button_dark.svg");
+    transform: rotate(-180deg);
+}
+
+.btn-secondary-modal {
+    background-color: var(--bs-secondary);
+    color: #fff;
+}
+
+.btn-secondary-modal:hover {
+    color: #000;
+}
+
+.btn-modal-sort {
+    background-color: transparent;
+    width: 19rem;
+    height: 2rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    outline: none;
+    margin: 3px;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-modal-sort:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.active {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.navbar-collapse {
+    flex-grow: 0;
+    padding-left: 0.5rem;
+}
+
+.bold {
+    font-weight: bolder;
+    cursor: pointer;
+    color: var(--primary-color);
+}
+
+.btn-modal-logout {
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.btn-modal-logout:hover {
+    background-color: var(--secondary-color);
+    color: #fff;
+}
+
+.account-details {
+    padding-bottom: 0.25rem;
+}
+
+h4, h3, .h4, .h3 {
+    margin-bottom: 0px;
+}
