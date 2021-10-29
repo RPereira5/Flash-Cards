@@ -175,7 +175,7 @@ textarea {
     outline: none;
 }
 
-.nav-link, .nav-link:visited {
+.nav-link, .nav-link:visited, .nav-link:focus {
     text-decoration: none;
     color: rgb(39, 39, 39);
     font-size: 1.25rem;
