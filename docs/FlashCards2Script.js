@@ -376,10 +376,10 @@ closeDtlsBtn.addEventListener('click', () => {
 themeToggler.addEventListener("click", () => {
     if (document.getElementById("themeToggler").innerHTML === "Switch to Dark Mode"){
         document.getElementById("themeToggler").innerHTML = "Switch to Light Mode";
-        document.getElementById("mySheet").href = "flashCards2Dark.css";
+        document.getElementById("mySheet").href = "FlashCards2Dark.css";
     }
     else {
         document.getElementById("themeToggler").innerHTML = "Switch to Dark Mode";
-        document.getElementById("mySheet").href = "flashCards2Light.css";
+        document.getElementById("mySheet").href = "FlashCards2Light.css";
     }
 });
