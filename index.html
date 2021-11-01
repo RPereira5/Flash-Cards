@@ -152,6 +152,7 @@
                     <div class="input-field">
                         <input type="password" id="login-password" placeholder="Your password" title="The password associated with your account." required>
                     </div>
+                    <a href="#" class="resetPassword">Forgot Password?</a><br>
                     <button class="btn btn-modal" title="Log in to Flash Cards Tool.">Login</button>
                 </form>
             </div>
@@ -167,6 +168,32 @@
             <div class="modal=body" style="padding:1rem">
                 <div class="account-details"></div>
                 <button class="btn btn-modal-logout" href="#" id="logout" title="Log out of Flash Cards Tool.">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Reset Modal -->
+    <div id="modal-reset-pw" class="modal-wrapper">
+        <div class="myModal">
+            <div class="modal-header"><h3>Reset Password</h3></div>
+            <div class="modal-body" style="padding:1rem">
+                <p id="flavortext">Enter the email address associated with your account. We will send you an email with further instructions.</p>
+                <form id="email-form">
+                    <div class="input-field">
+                        <input type="email" id="resetPwEmail" placeholder="Email address" title="Your account's email address." autocomplete="off" required>
+                    </div>
+                    <button class="btn btn-modal" href="#" id="submitResetEmail" title="Send email.">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Email Verification Popup -->
+    <div id="modal-email-ver" class="modal-wrapper">
+        <div class="myModal">
+            <div class="modal-body" style="padding:1rem">
+                <p id="flavortext">We have sent a verification email to the email address you provided. Follow the instructions to complete signup.</p>
+                <button class="btn btn-secondary-modal" href="#" id="closeEmailVerModal" title="Close this popup.">Close</button>
             </div>
         </div>
     </div>

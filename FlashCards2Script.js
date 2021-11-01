@@ -45,6 +45,14 @@ const signupLink = document.querySelector('#signup');
 const loginModal = document.querySelector('#modal-login');
 const loginLink = document.querySelector('#login');
 
+const resetPassword = document.querySelector('.resetPassword');
+const resetPwModal = document.getElementById('modal-reset-pw');
+const resetPwEmail = document.getElementById('resetPwEmail');
+const submitResetEmail = document.getElementById('submitResetEmail');
+
+const emailVerificationPopup = document.getElementById('modal-email-ver');
+const closeEmailVerModal = document.getElementById('closeEmailVerModal');
+
 const flashCardsList = document.querySelector('.flashCardsList');
 const noCards = document.querySelector('.noCards');
 
@@ -151,10 +159,22 @@ signupLink.addEventListener('click', () => {
     navbar.classList.remove('sticky-top');
 })
 
+// Click Close (Email Ver Popup)
+closeEmailVerModal.addEventListener('click', () => {
+    emailVerificationPopup.classList.remove('modal-show');
+    navbar.classList.add('sticky-top');
+})
+
 // Click Login
 loginLink.addEventListener('click', () => {
     loginModal.classList.add('modal-show');
     navbar.classList.remove('sticky-top');
+})
+
+// Click Forgot Password
+resetPassword.addEventListener('click', () => {
+    loginModal.classList.remove('modal-show');
+    resetPwModal.classList.add('modal-show');
 })
 
 // Click Account
@@ -235,6 +255,14 @@ window.addEventListener('click', e => {
     }
     if(e.target === accountModal){
         accountModal.classList.remove('modal-show');
+        navbar.classList.add('sticky-top');
+    }
+    if(e.target === resetPwModal){
+        resetPwModal.classList.remove('modal-show');
+        navbar.classList.add('sticky-top');
+    }
+    if(e.target === emailVerificationPopup){
+        emailVerificationPopup.classList.remove('modal-show');
         navbar.classList.add('sticky-top');
     }
 });
@@ -376,10 +404,10 @@ closeDtlsBtn.addEventListener('click', () => {
 themeToggler.addEventListener("click", () => {
     if (document.getElementById("themeToggler").innerHTML === "Switch to Dark Mode"){
         document.getElementById("themeToggler").innerHTML = "Switch to Light Mode";
-        document.getElementById("mySheet").href = "flashCards2Dark.css";
+        document.getElementById("mySheet").href = "FlashCards2Dark.css";
     }
     else {
         document.getElementById("themeToggler").innerHTML = "Switch to Dark Mode";
-        document.getElementById("mySheet").href = "flashCards2Light.css";
+        document.getElementById("mySheet").href = "FlashCards2Light.css";
     }
 });

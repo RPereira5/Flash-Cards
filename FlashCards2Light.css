@@ -175,7 +175,7 @@ textarea {
     outline: none;
 }
 
-.nav-link, .nav-link:visited {
+.nav-link, .nav-link:visited, .nav-link:focus {
     text-decoration: none;
     color: rgb(39, 39, 39);
     font-size: 1.25rem;
@@ -309,6 +309,20 @@ h4, h3, .h4, .h3 {
 
 .span-link:hover {
     color: #212529;
+}
+
+.resetPassword {
+    text-decoration: none;
+    color: #dadbdb;
+}
+
+.resetPassword:hover {
+    color: #212529
+}
+
+#flavortext {
+    font-size: 14px;
+    color: rgb(99, 99, 99);
 }
 
 @media (min-width: 1400px) {.container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
