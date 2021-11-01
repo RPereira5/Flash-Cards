@@ -45,6 +45,11 @@ const signupLink = document.querySelector('#signup');
 const loginModal = document.querySelector('#modal-login');
 const loginLink = document.querySelector('#login');
 
+const resetPassword = document.querySelector('.resetPassword');
+const resetPwModal = document.getElementById('modal-reset-pw');
+const resetPwEmail = document.getElementById('resetPwEmail');
+const submitResetEmail = document.getElementById("submitResetEmail");
+
 const flashCardsList = document.querySelector('.flashCardsList');
 const noCards = document.querySelector('.noCards');
 
@@ -157,6 +162,12 @@ loginLink.addEventListener('click', () => {
     navbar.classList.remove('sticky-top');
 })
 
+// Click Forgot Password
+resetPassword.addEventListener('click', () => {
+    loginModal.classList.remove('modal-show');
+    resetPwModal.classList.add('modal-show');
+})
+
 // Click Account
 accountBtn.addEventListener('click', () => {
     accountModal.classList.add('modal-show');
@@ -235,6 +246,10 @@ window.addEventListener('click', e => {
     }
     if(e.target === accountModal){
         accountModal.classList.remove('modal-show');
+        navbar.classList.add('sticky-top');
+    }
+    if(e.target === resetPwModal){
+        resetPwModal.classList.remove('modal-show');
         navbar.classList.add('sticky-top');
     }
 });

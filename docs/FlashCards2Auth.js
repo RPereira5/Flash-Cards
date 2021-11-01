@@ -71,3 +71,17 @@ loginForm.addEventListener('submit', e => {
         console.log(err.message);
     })
 });
+
+// reset password
+submitResetEmail.addEventListener('click', e => {
+    e.preventDefault();
+
+    const email = resetPwEmail.value;
+    auth.sendPasswordResetEmail(email).then(() => {
+        console.log('Password reset email sent!');
+        resetPwModal.classList.remove('modal-show');
+        navbar.classList.add('sticky-top');
+    }).catch(err => {
+        console.log(err.message);
+    })
+})
