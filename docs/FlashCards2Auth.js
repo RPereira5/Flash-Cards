@@ -42,8 +42,18 @@ signupForm.addEventListener('submit', e => {
     }).then(() => {
         signupModal.classList.remove('modal-show');
         signupForm.reset();
+
+        // email verification
+        emailVerificationPopup.classList.add('modal-show');
+        navbar.classList.remove('sticky-top');
+        auth.currentUser.sendEmailVerification().then(() => {
+            console.log("Verification email sent!");
+        }).catch(err => console.log(err.message));
     });
 });
+
+
+
 
 // logout
 const logout = document.querySelector('#logout');
@@ -67,9 +77,7 @@ loginForm.addEventListener('submit', e => {
     auth.signInWithEmailAndPassword(email, password).then(_cred => {
         loginModal.classList.remove('modal-show');
         loginForm.reset();
-    }).catch(err => {
-        console.log(err.message);
-    })
+    }).catch(err => console.log(err.message))
 });
 
 // reset password
@@ -79,9 +87,9 @@ submitResetEmail.addEventListener('click', e => {
     const email = resetPwEmail.value;
     auth.sendPasswordResetEmail(email).then(() => {
         console.log('Password reset email sent!');
-        resetPwModal.classList.remove('modal-show');
-        navbar.classList.add('sticky-top');
-    }).catch(err => {
-        console.log(err.message);
-    })
-})
+    }).catch(err => console.log(err.message))
+    resetPwModal.classList.remove('modal-show');
+    navbar.classList.add('sticky-top');
+    resetPwConfirmPopup.classList.add('modal-show');
+    navbar.classList.remove('sticky-top');
+});

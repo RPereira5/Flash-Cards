@@ -48,7 +48,13 @@ const loginLink = document.querySelector('#login');
 const resetPassword = document.querySelector('.resetPassword');
 const resetPwModal = document.getElementById('modal-reset-pw');
 const resetPwEmail = document.getElementById('resetPwEmail');
-const submitResetEmail = document.getElementById("submitResetEmail");
+const submitResetEmail = document.getElementById('submitResetEmail');
+
+const emailVerificationPopup = document.getElementById('modal-email-ver');
+const closeEmailVerModal = document.getElementById('closeEmailVerModal');
+
+const resetPwConfirmPopup = document.getElementById('modal-reset-pw-confirm');
+const closePwResetConfirmModal = document.getElementById('closePwResetConfirmModal');
 
 const flashCardsList = document.querySelector('.flashCardsList');
 const noCards = document.querySelector('.noCards');
@@ -156,6 +162,12 @@ signupLink.addEventListener('click', () => {
     navbar.classList.remove('sticky-top');
 })
 
+// Click Close (Email Ver Popup)
+closeEmailVerModal.addEventListener('click', () => {
+    emailVerificationPopup.classList.remove('modal-show');
+    navbar.classList.add('sticky-top');
+})
+
 // Click Login
 loginLink.addEventListener('click', () => {
     loginModal.classList.add('modal-show');
@@ -166,6 +178,12 @@ loginLink.addEventListener('click', () => {
 resetPassword.addEventListener('click', () => {
     loginModal.classList.remove('modal-show');
     resetPwModal.classList.add('modal-show');
+})
+
+// Click Close (Password Reset Confirmation Popup)
+closePwResetConfirmModal.addEventListener('click', () => {
+    resetPwConfirmPopup.classList.remove('modal-show');
+    navbar.classList.add('sticky-top');
 })
 
 // Click Account
